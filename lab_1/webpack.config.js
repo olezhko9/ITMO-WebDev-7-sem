@@ -8,7 +8,10 @@ const PATHS = {
 }
 
 module.exports = {
-    entry: PATHS.source + '/main.js',
+    entry: [
+        PATHS.source + '/main.js',
+        PATHS.source + '/style.sass'
+    ],
     output: {
         path: PATHS.build,
         filename: "[name].js"
@@ -17,7 +20,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: PATHS.source + '/index.pug'
         }),
-        new ExtractTextPlugin('./css/[name].css')
+        new ExtractTextPlugin({
+            filename: './css/[name].css'
+        })
     ],
     module: {
         rules: [
