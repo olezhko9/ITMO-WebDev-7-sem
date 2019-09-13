@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const PATHS = {
     source: path.join(__dirname, 'src'),
@@ -15,7 +16,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: PATHS.source + '/index.pug'
-        })
+        }),
+        new ExtractTextPlugin('./css/[name].css')
     ],
     module: {
         rules: [
@@ -25,6 +27,13 @@ module.exports = {
                 options: {
                     pretty: true
                 }
+            },
+            {
+                test: /\.sass$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader']
+                })
             }
         ]
     }
