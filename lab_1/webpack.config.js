@@ -9,7 +9,7 @@ const PATHS = {
 
 module.exports = {
     entry: [
-        PATHS.source + '/main.js',
+        PATHS.source + '/js/main.js',
         PATHS.source + '/style.sass'
     ],
     output: {
