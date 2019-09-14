@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
 
 const PATHS = {
     source: path.join(__dirname, 'src'),
@@ -22,6 +23,11 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: './css/[name].css'
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
         })
     ],
     module: {
