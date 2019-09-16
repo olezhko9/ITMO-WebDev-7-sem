@@ -1,7 +1,9 @@
 import getWeather from './weather'
+import render from './weather-renderer'
 
 $(function () {
   $('#search-btn').click(async function () {
-    await getWeather($('#city-input').val())
+    const weatherData = await getWeather($('#city-input').val())
+    render(weatherData)
   })
 })

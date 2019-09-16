@@ -1,16 +1,16 @@
 async function getWeather(city) {
   const access = '9b996e3e51a4e3dbd955853e9ba2c792'
+  let data = null
   try {
-    let weather = await fetch(
+    data = await fetch(
       `http://api.weatherstack.com/current?access_key=${access}&query=${city}`,
-      {"method": "GET"}
+      { "method": "GET" }
     )
-    weather = await weather.json()
-
-    console.log(weather);
+    data = await data.json()
   } catch (e) {
-    console.log(e);
+    data = e.response.data
   }
+  return data
 }
 
 export default getWeather
