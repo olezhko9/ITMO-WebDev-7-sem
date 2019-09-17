@@ -19,7 +19,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: PATHS.source + '/index.pug'
+            template: PATHS.source + '/index.pug',
+            inject: "body"
         }),
         new ExtractTextPlugin({
             filename: './css/[name].css'
