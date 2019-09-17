@@ -1,5 +1,5 @@
 import getWeather from './weather'
-// import render from './weather-renderer'
+import renderWeather from '../components/weather'
 
 $(function () {
   $('#search-btn').click(async function () {
@@ -8,6 +8,5 @@ $(function () {
     const div = document.createElement("div");
     div.innerHTML = html;
     document.body.appendChild(div);
-    // render(weatherData)
   })
 })

@@ -1,6 +1,20 @@
 const pug = require('pug/lib');
 const fs = require('fs');
 
-const compiledFunction = pug.compileFileClient('./src/components/weather.pug', {name: 'renderWeather'});
+const componentsDir = './src/components/'
 
-fs.writeFileSync("./src/js/renderWeather.js", compiledFunction);
+function compileComponents(componentsDir) {
+  fs.readdirSync(componentsDir).forEach(file => {
+    const functionName = 'render' + file.charAt(0).toUpperCase() + file.slice(1, file.lastIndexOf('.'))
+
+    let compiledFunction = pug.compileFileClient(
+      `./src/components/${file}`, {
+        name: functionName
+      });
+    compiledFunction += `export default ${functionName}`
+
+    fs.writeFileSync(`./src/components/${file.slice(0, file.lastIndexOf('.'))}.js`, compiledFunction);
+  });
+}
+
+compileComponents(componentsDir)
