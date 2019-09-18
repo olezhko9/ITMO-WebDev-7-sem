@@ -1,1 +1,5 @@
-p Temperature in #{name}
+p Temperature in #{city}
+hr
+ul
+  each key in Object.keys(weather)
+    li= key + ': ' + weather[key]
