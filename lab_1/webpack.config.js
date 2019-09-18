@@ -11,7 +11,7 @@ const PATHS = {
 module.exports = {
     entry: [
         PATHS.source + '/js/main.js',
-        PATHS.source + '/style.sass'
+        PATHS.source + '/style/main.sass'
     ],
     output: {
         path: PATHS.build,
