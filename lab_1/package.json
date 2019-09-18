@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run compile && webpack-dev-server --open",
-    "build": "npm run compile && webpack",
-    "compile": "node compile.js"
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
   },
   "author": "Oleg Naumov",
   "license": "ISC",
