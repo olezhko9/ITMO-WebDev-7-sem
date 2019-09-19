@@ -15,4 +15,9 @@ $(function () {
     const div = $('<div></div>').html(html);
     $('.weather-main').append(div)
   })
+
+  $(document).on('click', '.close', function (e) {
+    console.log(e);
+    $('.weather-component').remove()
+  })
 })

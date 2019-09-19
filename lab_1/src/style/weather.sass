@@ -4,6 +4,20 @@
   background-color: white
   color: black
   border: 2px solid $primary
+  position: relative
+
+  .close
+    position: absolute
+    right: 0.5rem
+    top: 0.5rem
+    width: 24px
+    height: 24px
+    font-size: 2em
+    opacity: 0.5
+    cursor: pointer
+
+  .close:hover
+    opacity: 1
 
 .weather-temperature
   display: flex
