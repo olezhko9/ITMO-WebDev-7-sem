@@ -6,8 +6,11 @@ html
     title ITMO Web Dev Lab 1
   body
     .container
-      .weather-header
-        h1 Web Dev Lab 1
-        .weather-input
-          input#city-input(placeholder="Введите город")
-          button#search-btn Найти
+      .weather
+        .weather-header
+          h1 Web Dev Lab 1
+          .weather-input
+            input#city-input(placeholder="Введите город")
+            button#search-btn Найти
+        .weather-main
+          //include components/weather.pug

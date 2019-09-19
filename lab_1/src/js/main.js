@@ -13,6 +13,6 @@ $(function () {
     })
 
     const div = $('<div></div>').html(html);
-    $('body').append(div)
+    $('.weather-main').append(div)
   })
 })
