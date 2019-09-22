@@ -1,59 +1,77 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require("path");
+
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPugPlugin = require('html-webpack-pug-plugin');
 const webpack = require('webpack')
 
-const PATHS = {
-    source: path.join(__dirname, 'src'),
-    build: path.join(__dirname, 'build')
-}
+const extractSass = new ExtractTextPlugin({
+  filename: "css/style.css",
+  disable: process.env.NODE_ENV === "development"
+});
 
 module.exports = {
-    entry: [
-        PATHS.source + '/js/main.js',
-        PATHS.source + '/style/main.sass'
-    ],
-    output: {
-        path: PATHS.build,
-        filename: "[name].js"
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: PATHS.source + '/index.pug',
-            inject: "body"
-        }),
-        new ExtractTextPlugin({
-            filename: './css/[name].css'
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery'
-        })
-    ],
-    module: {
-        rules: [
+  entry: {
+    javascript: "./src/js/index.js"
+  },
+  output: {
+    path: path.resolve(__dirname, "./dist/"),
+    filename: "[name].js"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.sass$/,
+        use: extractSass.extract({
+          use: [
             {
-                test: /\.pug$/,
-                loader: 'pug-loader',
-                options: {
-                    pretty: true
-                }
+              loader: "css-loader",
+              options: {
+                minimize: true,
+                sourceMap: true
+              }
             },
             {
-                test: /\.sass$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
-                })
+              loader: 'resolve-url-loader',
             },
             {
-                test: /\.(png|jpg)$/,
-                loader: 'url-loader'
+              loader: "sass-loader",
             }
-        ]
-    },
-    node: {
-        fs: 'empty'
-    }
+          ],
+          publicPath: '../',
+          fallback: "style-loader"
+        })
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          outputPath: "images"
+        }
+      },
+      {
+        test: /\.pug/,
+        loader: 'pug-loader',
+        options: {
+          pretty: true
+        }
+      }
+    ]
+  },
+  devtool: 'inline-source-map',
+  plugins: [
+    extractSass,
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: 'src/views/index.pug',
+
+    }),
+    new HtmlWebpackPugPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    })
+  ]
 }

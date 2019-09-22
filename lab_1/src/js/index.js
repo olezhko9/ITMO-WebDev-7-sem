@@ -1,5 +1,5 @@
 import getWeather from './weather'
-
+import '../style/main.sass'
 const template = require('../components/weather.pug')
 
 $(function () {
@@ -8,8 +8,8 @@ $(function () {
     const weatherData = await getWeather($('#city-input').val())
 
     const html = template({
-        city: weatherData.location.name,
-        weather: weatherData.current
+      city: weatherData.location.name,
+      weather: weatherData.current
     })
 
     const div = $('<div></div>').html(html);
