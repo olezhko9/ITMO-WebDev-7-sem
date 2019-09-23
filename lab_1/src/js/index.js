@@ -4,7 +4,7 @@ const template = require('../components/weather.pug')
 
 $(function () {
   $('#search-btn').click(async function () {
-
+    $('#search-btn').addClass('loading')
     const weatherData = await getWeather($('#city-input').val())
 
     const html = template({
@@ -14,6 +14,7 @@ $(function () {
 
     const div = $('<div></div>').html(html);
     $('.weather-main').append(div)
+    $('#search-btn').removeClass('loading')
   })
 
   $(document).on('click', '.close', function (e) {
