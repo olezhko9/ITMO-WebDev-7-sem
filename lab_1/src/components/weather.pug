@@ -21,24 +21,33 @@
     - wind_speed: 9
     - }
 
-  .weather-temperature
-    .temperature_now
-      if weather.temperature > 0
-        | +
-      | #{weather.temperature} ℃
-    .temperature_like
-      | Ощущается как
-      if weather.feelslike > 0
-        |  +
-      | #{weather.feelslike}
+  .weather-info
+    .weather-text
+      .weather-temperature
+        .temperature_now
+          if weather.temperature > 0
+            | +
+          | #{weather.temperature} ℃
+        .temperature_like
+          | Ощущается как
+          if weather.feelslike >= 0
+            |  +
+          | #{weather.feelslike}
 
-  .weather-parameters
-    .parameter #{weather.wind_speed} м/с
-    .parameter #{weather.humidity} %
-    .parameter #{weather.pressure} мм рт. ст.
+      .weather-details
+        .detail
+          img(src="https://img.icons8.com/ios-glyphs/14/000000/wind.png")
+          | #{weather.wind_speed} м/с
+        .detail
+          img(src="https://img.icons8.com/ios/14/000000/drop-of-blood--v2.png")
+          | #{weather.humidity} %
+        .detail
+          img(src="https://img.icons8.com/ios/14/000000/pressure.png")
+          | #{weather.pressure} мм рт. ст.
 
-  - let img = ''
-  - if (weather.temperature > 5)
-  -   img = require("../img/cloud_day.png")
-  - console.log(img)
-  img(src=img)
+    .weather-image
+      - let img = ''
+      - if (weather.temperature > 5)
+      -   img = require("../img/cloud_day.png")
+      - console.log(img)
+      img(src=img, width=64, height=56)
