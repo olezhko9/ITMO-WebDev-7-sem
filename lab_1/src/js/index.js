@@ -1,5 +1,6 @@
 import getWeather from './weather'
 import '../style/main.sass'
+
 const weatherTemplate = require('../components/weather.pug')
 
 $(function () {
@@ -8,11 +9,10 @@ $(function () {
     const weatherData = await getWeather($('#city-input').val())
 
     const weatherComponent = weatherTemplate({
-      city: weatherData.location.name,
-      weather: weatherData.current
+      weather: weatherData
     })
 
-    $('.weather-main').append(weatherComponent)
+    $('.weather-main').prepend(weatherComponent)
     $('#search-btn').removeClass('loading')
   })
 

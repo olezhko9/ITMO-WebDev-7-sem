@@ -1,89 +1,73 @@
 .weather-component
   span.close ×
-  // - let city = "Moscow"
-  h3 Погода в #{city}
+  if weather.location && weather.current
 
-  // - let weather = {
-  // - cloudcover: 0,
-  // - feelslike: 25,
-  // - humidity: 6,
-  // - observation_time: "08:58 PM",
-  // - precip: 0,
-  // - pressure: 1008,
-  // - temperature: 27,
-  // - uv_index: 7,
-  // - visibility: 10,
-  // - weather_code: 113,
-  // - weather_descriptions: ["Sunny"],
-  // - weather_icons: ["https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0001_sunny.png"],
-  // - wind_degree: 130,
-  // - wind_dir: "SE",
-  // - wind_speed: 9
-  // - }
+    h3 Погода в #{weather.location.name}
+    .weather-info
+      .weather-text
+        .weather-temperature
+          .temperature_now
+            if weather.current.temperature > 0
+              | +
+            | #{weather.current.temperature} ℃
+          .temperature_like
+            | #{`Ощущается как `}
+            if weather.current.feelslike >= 0
+              | +
+            | #{weather.current.feelslike}
 
-  .weather-info
-    .weather-text
-      .weather-temperature
-        .temperature_now
-          if weather.temperature > 0
-            | +
-          | #{weather.temperature} ℃
-        .temperature_like
-          | Ощущается как
-          if weather.feelslike >= 0
-            |  +
-          | #{weather.feelslike}
+        .weather-details
+          .detail
+            img(src="https://img.icons8.com/ios-glyphs/18/000000/wind.png")
+            | #{weather.current.wind_speed} м/с
+          .detail
+            img(src="https://img.icons8.com/ios/18/000000/drop-of-blood--v2.png")
+            | #{weather.current.humidity} %
+          .detail
+            img(src="https://img.icons8.com/ios/18/000000/pressure.png")
+            | #{weather.current.pressure} мм рт. ст.
 
-      .weather-details
-        .detail
-          img(src="https://img.icons8.com/ios-glyphs/18/000000/wind.png")
-          | #{weather.wind_speed} м/с
-        .detail
-          img(src="https://img.icons8.com/ios/18/000000/drop-of-blood--v2.png")
-          | #{weather.humidity} %
-        .detail
-          img(src="https://img.icons8.com/ios/18/000000/pressure.png")
-          | #{weather.pressure} мм рт. ст.
+      .weather-image
+        case weather.current.weather_code
+          when 113
+            img(src=require('../img/icons/Sunny.png'))
+          when 116
+          when 119
+            img(src=require('../img/icons/Cloudly.png'))
+          when 143
+          when 248
+          when 260
+            img(src=require('../img/icons/Mist.png'))
+          when 176
+          when 263
+            img(src=require('../img/icons/Patchy rain.png'))
+          when 179
+          when 182
+            img(src=require('../img/icons/Patchy snow.png'))
+          when 200
+            img(src=require('../img/icons/Thundery outbreaks.png'))
+          when 230
+            img(src=require('../img/icons/Blizzard.png'))
+          when 293
+          when 296
+          when 311
+            img(src=require('../img/icons/Light rain.png'))
+          when 299
+          when 302
+            img(src=require('../img/icons/Moderate rain.png'))
+          when 305
+          when 308
+            img(src=require('../img/icons/Heavy rain.png'))
+          when 277
+            img(src=require('../img/icons/Blowing snow.png'))
+          when 185
+          when 281
+          when 284
+            img(src=require('../img/icons/Snow.png'))
+          when 266
+            img(src=require('../img/icons/Light drizzle.png'))
+          default
+            img(src=require('../img/icons/Rainbow.png'))
 
-    .weather-image
-
-      case weather.weather_code
-        when 113
-          img(src=require('../img/icons/Sunny.png'))
-        when 116
-        when 119
-          img(src=require('../img/icons/Cloudly.png'))
-        when 143
-        when 248
-        when 260
-          img(src=require('../img/icons/Mist.png'))
-        when 176
-        when 263
-          img(src=require('../img/icons/Patchy rain.png'))
-        when 179
-        when 182
-          img(src=require('../img/icons/Patchy snow.png'))
-        when 200
-          img(src=require('../img/icons/Thundery outbreaks.png'))
-        when 230
-          img(src=require('../img/icons/Blizzard.png'))
-        when 293
-        when 296
-        when 311
-          img(src=require('../img/icons/Light rain.png'))
-        when 299
-        when 302
-          img(src=require('../img/icons/Moderate rain.png'))
-        when 305
-        when 308
-          img(src=require('../img/icons/Heavy rain.png'))
-        when 277
-          img(src=require('../img/icons/Blowing snow.png'))
-        when 185
-        when 281
-        when 284
-          img(src=require('../img/icons/Snow.png'))
-        when 266
-          img(src=require('../img/icons/Light drizzle.png'))
-        default
-          img(src=require('../img/icons/Rainbow.png'))
+  else
+    p= weather.error.info
