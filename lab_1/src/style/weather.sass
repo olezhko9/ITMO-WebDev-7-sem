@@ -1,3 +1,5 @@
+$weather-font-size: 18px
+
 .weather-component
   width: 100%
   padding: 3%
@@ -6,6 +8,7 @@
   border: 2px solid $primary
   position: relative
   margin-bottom: 1%
+  font-size: $weather-font-size
 
   .close
     position: absolute
@@ -42,12 +45,16 @@
     flex-direction: row
     justify-content: space-between
     margin-top: 0.8rem
+    line-height: $weather-font-size
 
-    .detail img
+    .detail
+      margin-right: 12px
+
+      img
         margin-right: 5px
 
   .weather-image
     display: flex
-    flex: 40%
+    flex: 20%
     align-items: center
     justify-content: center
