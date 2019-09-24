@@ -3,26 +3,26 @@ const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPugPlugin = require('html-webpack-pug-plugin');
-const webpack = require('webpack')
+const webpack = require('webpack');
 
-const extractSass = new ExtractTextPlugin({
-  filename: "css/style.css",
-  disable: process.env.NODE_ENV === "development"
-});
+const PATHS = {
+  source: path.join(__dirname, 'src'),
+  build: path.join(__dirname, 'build')
+}
 
 module.exports = {
-  entry: {
-    javascript: "./src/js/index.js"
-  },
+  entry: [
+    PATHS.source + '/js/index.js',
+  ],
   output: {
-    path: path.resolve(__dirname, "./dist/"),
+    path: PATHS.build,
     filename: "[name].js"
   },
   module: {
     rules: [
       {
         test: /\.sass$/,
-        use: extractSass.extract({
+        use: ExtractTextPlugin.extract({
           use: [
             {
               loader: "css-loader",
@@ -59,12 +59,11 @@ module.exports = {
       }
     ]
   },
-  devtool: 'inline-source-map',
   plugins: [
-    extractSass,
+    new ExtractTextPlugin("styles.css"),
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: 'src/views/index.pug',
+      template:  PATHS.source + '/views/index.pug',
 
     }),
     new HtmlWebpackPugPlugin(),
