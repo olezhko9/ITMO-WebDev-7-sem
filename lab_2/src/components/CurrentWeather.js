@@ -1,0 +1,86 @@
+import React from 'react';
+
+import {Grid} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Paper from "@material-ui/core/Paper";
+
+import '../styles/CurrentWeather.sass';
+
+class CurrentWeather extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      "coord": {"lon": -0.13, "lat": 51.51},
+      "weather": [{"id": 501, "main": "Rain", "description": "moderate rain", "icon": "10n"}, {
+        "id": 701,
+        "main": "Mist",
+        "description": "mist",
+        "icon": "50n"
+      }],
+      "base": "stations",
+      "main": {"temp": 284.96, "pressure": 1013, "humidity": 87, "temp_min": 283.71, "temp_max": 286.15},
+      "visibility": 5000,
+      "wind": {"speed": 2.6, "deg": 110},
+      "rain": {"1h": 2.54},
+      "clouds": {"all": 100},
+      "dt": 1570320784,
+      "sys": {"type": 1, "id": 1414, "message": 0.0106, "country": "GB", "sunrise": 1570342113, "sunset": 1570382923},
+      "timezone": 3600,
+      "id": 2643743,
+      "name": "London",
+      "cod": 200
+    }
+  }
+
+  render() {
+    return (
+      <Grid container className={"CurrentWeather"} direction="row" spacing={4}>
+
+        <Grid container item xs={12} md={6} direction={"column"} alignItems={"center"} className={"weather-main"}>
+          <Grid container item justify={"flex-start"}>
+            <Typography variant="h4" component="h2" gutterBottom>
+              {this.state.name}
+            </Typography>
+          </Grid>
+          <Grid item container alignItems={"center"} justify={"space-evenly"} className={"weather-temperature"}>
+            <img src={`http://openweathermap.org/img/wn/${this.state.weather[0].icon}@2x.png`} alt=""/>
+            <Typography variant="h1" component="h2" gutterBottom>
+              {this.state.main.temp}°C
+            </Typography>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12} md={6} className={"weather-items"}>
+          <Paper elevation={1} className={"weather-item"}>
+            <span><b>Ветер</b></span>
+            <span>{this.state.wind.speed} м/с</span>
+          </Paper>
+
+          <Paper elevation={1} className={"weather-item"}>
+            <span><b>Облачность</b></span>
+            <span>{this.state.clouds.all} %</span>
+          </Paper>
+
+          <Paper elevation={1} className={"weather-item"}>
+            <span><b>Давление</b></span>
+            <span>{this.state.main.pressure} hpa</span>
+          </Paper>
+
+          <Paper elevation={1} className={"weather-item"}>
+            <span><b>Влажность</b></span>
+            <span>{this.state.main.humidity} %</span>
+          </Paper>
+
+          <Paper elevation={1} className={"weather-item"}>
+            <span><b>Координаты</b></span>
+            <span>[{this.state.coord.lon}, {this.state.coord.lat}]</span>
+          </Paper>
+        </Grid>
+
+      </Grid>
+    )
+  }
+}
+
+export default CurrentWeather;

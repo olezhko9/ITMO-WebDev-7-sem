@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
-import {Container, Grid} from '@material-ui/core'
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Fab from "@material-ui/core/Fab";
+import {Container, Grid, Button, TextField, Fab} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import CurrentWeather from "./components/CurrentWeather";
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -31,7 +29,7 @@ function App() {
         <Grid item xs={4}></Grid>
       </Grid>
 
-      <Grid></Grid>
+      <CurrentWeather />
 
       <Grid container>
         <Grid item xs={6}>
