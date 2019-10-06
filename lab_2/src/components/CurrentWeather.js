@@ -35,23 +35,23 @@ class CurrentWeather extends React.Component {
 
   render() {
     return (
-      <Grid container className={"CurrentWeather"} direction="row" spacing={4}>
+      <Grid container direction={this.props.isFavorite ? "column" : "row"} spacing={4} className={`CurrentWeather ${this.props.isFavorite ? "isFavorite" : ""}`}>
 
-        <Grid container item xs={12} md={6} direction={"column"} alignItems={"center"} className={"weather-main"}>
-          <Grid container item justify={"flex-start"}>
-            <Typography variant="h4" component="h2" gutterBottom>
+        <Grid container item xs={12} md={this.props.isFavorite ? 12 : 6} direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
+          <Grid container item xs={this.props.isFavorite ? 4 : false} justify={"flex-start"}>
+            <Typography variant="h4" component="h2">
               {this.state.name}
             </Typography>
           </Grid>
-          <Grid item container alignItems={"center"} justify={"space-evenly"} className={"weather-temperature"}>
+          <Grid item container xs={this.props.isFavorite ? 8 : false} alignItems={"center"} justify={"space-evenly"} className={"weather-temperature"}>
             <img src={`http://openweathermap.org/img/wn/${this.state.weather[0].icon}@2x.png`} alt=""/>
-            <Typography variant="h1" component="h2" gutterBottom>
+            <Typography variant={this.props.isFavorite ? "h3" : "h1"} component="h2">
               {this.state.main.temp}°C
             </Typography>
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={6} className={"weather-items"}>
+        <Grid item xs={12} md={this.props.isFavorite ? 12 : 6} className={"weather-items"}>
           <Paper elevation={1} className={"weather-item"}>
             <span><b>Ветер</b></span>
             <span>{this.state.wind.speed} м/с</span>

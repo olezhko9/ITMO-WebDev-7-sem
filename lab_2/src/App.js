@@ -29,7 +29,7 @@ function App() {
         <Grid item xs={4}></Grid>
       </Grid>
 
-      <CurrentWeather />
+      <CurrentWeather isFavorite={false} />
 
       <Grid container>
         <Grid item xs={6}>
@@ -44,6 +44,15 @@ function App() {
           <Fab size="small" color="primary" aria-label="add" className={styles.fab}>
             <AddIcon />
           </Fab>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={6}>
+          <CurrentWeather isFavorite />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CurrentWeather isFavorite />
         </Grid>
       </Grid>
     </Container>
