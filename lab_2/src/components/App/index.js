@@ -6,6 +6,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import CurrentWeather from "../CurrentWeather";
 import Typography from "@material-ui/core/Typography";
 
+import {connect} from 'react-redux';
+import {addCity} from "../../store/actions";
+
 const useStyles = makeStyles(theme => ({
   fab: {
     marginTop: theme.spacing(2),
@@ -25,58 +28,86 @@ const theme = createMuiTheme({
   }
 })
 
-function App() {
-  const styles = useStyles()
+class App extends React.Component {
 
-  return (
-    <MuiThemeProvider theme={theme}>
-      <Container maxWidth={"lg"}>
-        <Grid container spacing={1} component={"section"}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Typography variant="h4" component="h2">
-              Погода здесь
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} sm={6} md={4}>
-            <Button variant="contained" color="primary" fullWidth>
-              Обновить геолокацию
-            </Button>
-          </Grid>
-        </Grid>
+  constructor(props) {
+    super(props)
+    this.state = {
+      enteredCity: ''
+    }
+  }
 
-        <Grid container spacing={1} component={"section"}>
-          <CurrentWeather isFavorite={false} />
-        </Grid>
+  addCityToFavorite() {
+    this.props.addCity(this.state.enteredCity)
+  }
 
-        <Grid container component={"section"} alignItems={"center"}>
-          <Grid item xs={12} sm={5}>
-            <Typography variant="h4" component="h2">
-              Избранное
-            </Typography>
-          </Grid>
-          <Grid container item xs={12} sm={7} className={"addCityInput"}>
-            <TextField
-              label="Добавить новый город"
-              placeholder="Город"
-              margin={"none"}
-            />
-            <Fab size="small" color="primary" aria-label="add" className={styles.fab}>
-              <AddIcon />
-            </Fab>
-          </Grid>
-        </Grid>
+  onCityInput(e) {
+    const city = e.target.value
+    this.setState({enteredCity: city})
+  }
 
-        <Grid container spacing={4} component={"section"}>
-          <Grid item xs={12} md={6}>
-            <CurrentWeather isFavorite />
+  render() {
+    // const styles = useStyles()
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Container maxWidth={"lg"}>
+          <Grid container spacing={1} component={"section"}>
+            <Grid item xs={12} sm={6} md={4}>
+              <Typography variant="h4" component="h2">
+                Погода здесь
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} sm={6} md={4}>
+              <Button variant="contained" color="primary" fullWidth>
+                Обновить геолокацию
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <CurrentWeather isFavorite />
+
+          <Grid container spacing={1} component={"section"}>
+            <CurrentWeather isFavorite={false}/>
           </Grid>
-        </Grid>
-      </Container>
-    </MuiThemeProvider>
-  );
+
+          <Grid container component={"section"} alignItems={"center"}>
+            <Grid item xs={12} sm={5}>
+              <Typography variant="h4" component="h2">
+                Избранное
+              </Typography>
+            </Grid>
+            <Grid container item xs={12} sm={7} className={"addCityInput"}>
+              <TextField
+                label="Добавить новый город"
+                placeholder="Город"
+                margin={"none"}
+                onChange={this.onCityInput.bind(this)}
+              />
+              <Fab size="small" color="primary" onClick={this.addCityToFavorite.bind(this)}>
+                <AddIcon/>
+              </Fab>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={4} component={"section"}>
+            <Grid item xs={12} md={6}>
+              <CurrentWeather isFavorite/>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <CurrentWeather isFavorite/>
+            </Grid>
+          </Grid>
+
+        </Container>
+      </MuiThemeProvider>
+    );
+  }
 }
 
-export default App;
+export default connect(
+  state => ({
+    cities: state
+  }),
+  {
+    addCity
+  }
+)(App);
+
