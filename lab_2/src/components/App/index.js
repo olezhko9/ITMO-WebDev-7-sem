@@ -88,12 +88,11 @@ class App extends React.Component {
           </Grid>
 
           <Grid container spacing={4} component={"section"}>
-            <Grid item xs={12} md={6}>
-              <CurrentWeather city={"St. Petersburg"} isFavorite/>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <CurrentWeather city={"Moscow"} isFavorite/>
-            </Grid>
+            {this.props.cities.map((city, index) =>
+              <Grid key={index} item xs={12} md={6}>
+                <CurrentWeather city={city} isFavorite/>
+              </Grid>
+            )}
           </Grid>
 
         </Container>
