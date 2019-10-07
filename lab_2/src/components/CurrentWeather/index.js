@@ -8,6 +8,9 @@ import Hidden from "@material-ui/core/Hidden/index";
 import CloseIcon from '@material-ui/icons/Close';
 import LoadingSpinner from '../LoadingSpinner';
 
+import {connect} from 'react-redux';
+import {removeCity} from "../../store/actions";
+
 import './style.sass';
 
 class CurrentWeather extends React.Component {
@@ -41,6 +44,10 @@ class CurrentWeather extends React.Component {
     setTimeout(() => {this.setState({loaded: true, ...this.state})}, Math.random() * 3000)
   }
 
+  onRemoveCityClick() {
+    this.props.removeCity(this.props.city)
+  }
+
   render() {
     const K = 273.15; // для перевода Кельвин в Цельсия
     const temperatureCelsius = Math.round(this.state.main.temp - K);
@@ -53,7 +60,7 @@ class CurrentWeather extends React.Component {
                 direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
             <Grid container item sm={this.props.isFavorite ? 4 : false} justify={"space-between"}>
               <Typography variant="h5" component="h2">
-                <b>{this.state.name}</b>
+                <b>{this.props.city}</b>
               </Typography>
               <Hidden smUp>
                 {this.props.isFavorite &&
@@ -73,7 +80,7 @@ class CurrentWeather extends React.Component {
             <Hidden only="xs">
               <Grid container item sm={1} justify={"flex-end"}>
                 {this.props.isFavorite &&
-                <Fab color="primary" size={"small"}>
+                <Fab color="primary" size={"small"} onClick={this.onRemoveCityClick.bind(this)}>
                   <CloseIcon/>
                 </Fab>
                 }
@@ -116,4 +123,9 @@ class CurrentWeather extends React.Component {
   }
 }
 
-export default CurrentWeather;
+export default connect(
+  null,
+  {
+    removeCity
+  }
+)(CurrentWeather);

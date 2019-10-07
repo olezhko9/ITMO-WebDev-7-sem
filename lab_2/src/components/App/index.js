@@ -37,7 +37,7 @@ class App extends React.Component {
     }
   }
 
-  addCityToFavorite() {
+  onAddCityClick() {
     this.props.addCity(this.state.enteredCity)
   }
 
@@ -65,7 +65,7 @@ class App extends React.Component {
           </Grid>
 
           <Grid container spacing={1} component={"section"}>
-            <CurrentWeather isFavorite={false}/>
+            <CurrentWeather city={"London"} isFavorite={false}/>
           </Grid>
 
           <Grid container component={"section"} alignItems={"center"}>
@@ -81,7 +81,7 @@ class App extends React.Component {
                 margin={"none"}
                 onChange={this.onCityInput.bind(this)}
               />
-              <Fab size="small" color="primary" onClick={this.addCityToFavorite.bind(this)}>
+              <Fab size="small" color="primary" onClick={this.onAddCityClick.bind(this)}>
                 <AddIcon/>
               </Fab>
             </Grid>
@@ -89,10 +89,10 @@ class App extends React.Component {
 
           <Grid container spacing={4} component={"section"}>
             <Grid item xs={12} md={6}>
-              <CurrentWeather isFavorite/>
+              <CurrentWeather city={"St. Petersburg"} isFavorite/>
             </Grid>
             <Grid item xs={12} md={6}>
-              <CurrentWeather isFavorite/>
+              <CurrentWeather city={"Moscow"} isFavorite/>
             </Grid>
           </Grid>
 
