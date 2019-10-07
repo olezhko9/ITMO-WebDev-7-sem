@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+section {
+  margin-top: 1rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.addCityInput {
+  justify-content: space-between;
+}
+
+@media (min-width: 480px) {
+  .addCityInput {
+    justify-content: flex-end;
+  }
+}

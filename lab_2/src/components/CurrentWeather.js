@@ -44,8 +44,8 @@ class CurrentWeather extends React.Component {
 
         <Grid container item xs={12} md={this.props.isFavorite ? 12 : 6} direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
           <Grid container item sm={this.props.isFavorite ? 4 : false} justify={"space-between"}>
-            <Typography variant="h4" component="h2">
-              {this.state.name}
+            <Typography variant="h5" component="h2">
+              <b>{this.state.name}</b>
             </Typography>
             <Hidden smUp>
               {this.props.isFavorite &&
