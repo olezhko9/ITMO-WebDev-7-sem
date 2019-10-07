@@ -1,6 +1,6 @@
-import {Grid} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import {RingLoader} from "react-spinners";
+import {Grid} from "@material-ui/core/index";
+import Typography from "@material-ui/core/Typography/index";
+import {RingLoader} from "react-spinners/index";
 import React from "react";
 
 function LoadingSpinner(props) {

@@ -3,7 +3,7 @@ import './App.css';
 import {Container, Grid, Button, TextField, Fab, createMuiTheme, MuiThemeProvider} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import CurrentWeather from "./components/CurrentWeather";
+import CurrentWeather from "../CurrentWeather";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({

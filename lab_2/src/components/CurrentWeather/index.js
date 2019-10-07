@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {Grid} from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import Paper from "@material-ui/core/Paper";
-import Fab from "@material-ui/core/Fab";
-import Hidden from "@material-ui/core/Hidden";
+import {Grid} from '@material-ui/core/index';
+import Typography from '@material-ui/core/Typography/index';
+import Paper from "@material-ui/core/Paper/index";
+import Fab from "@material-ui/core/Fab/index";
+import Hidden from "@material-ui/core/Hidden/index";
 import CloseIcon from '@material-ui/icons/Close';
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner';
 
-import '../styles/CurrentWeather.sass';
+import './style.sass';
 
 class CurrentWeather extends React.Component {
 
