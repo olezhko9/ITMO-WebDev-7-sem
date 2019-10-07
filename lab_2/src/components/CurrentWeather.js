@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Paper from "@material-ui/core/Paper";
 
 import '../styles/CurrentWeather.sass';
+import Fab from "@material-ui/core/Fab";
+import CloseIcon from '@material-ui/icons/Close';
+import Hidden from "@material-ui/core/Hidden";
 
 class CurrentWeather extends React.Component {
 
@@ -34,21 +37,40 @@ class CurrentWeather extends React.Component {
   }
 
   render() {
+    const K = 273.15; // для перевода Кельвин в Цельсия
+    const temperatureCelsius = Math.round(this.state.main.temp - K);
     return (
       <Grid container direction={this.props.isFavorite ? "column" : "row"} spacing={4} className={`CurrentWeather ${this.props.isFavorite ? "isFavorite" : ""}`}>
 
         <Grid container item xs={12} md={this.props.isFavorite ? 12 : 6} direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
-          <Grid container item xs={this.props.isFavorite ? 4 : false} justify={"flex-start"}>
+          <Grid container item sm={this.props.isFavorite ? 4 : false} justify={"space-between"}>
             <Typography variant="h4" component="h2">
               {this.state.name}
             </Typography>
+            <Hidden smUp>
+              {this.props.isFavorite &&
+                <Fab color="primary" size={"small"}>
+                  <CloseIcon />
+                </Fab>
+              }
+            </Hidden>
           </Grid>
-          <Grid item container xs={this.props.isFavorite ? 8 : false} alignItems={"center"} justify={"space-evenly"} className={"weather-temperature"}>
+          <Grid item container sm={this.props.isFavorite ? 7 : false} alignItems={"center"}
+                justify={"space-evenly"} className={"weather-temperature"}>
             <img src={`http://openweathermap.org/img/wn/${this.state.weather[0].icon}@2x.png`} alt=""/>
             <Typography variant={this.props.isFavorite ? "h3" : "h1"} component="h2">
-              {this.state.main.temp}°C
+              {temperatureCelsius}°C
             </Typography>
           </Grid>
+          <Hidden only="xs">
+            <Grid container item sm={1} justify={"flex-end"}>
+              {this.props.isFavorite &&
+              <Fab color="primary" size={"small"}>
+                <CloseIcon />
+              </Fab>
+              }
+            </Grid>
+          </Hidden>
         </Grid>
 
         <Grid item xs={12} md={this.props.isFavorite ? 12 : 6} className={"weather-items"}>
