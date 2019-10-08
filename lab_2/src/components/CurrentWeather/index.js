@@ -18,30 +18,20 @@ class CurrentWeather extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      "coord": {"lon": -0.13, "lat": 51.51},
-      "weather": [{"id": 501, "main": "Rain", "description": "moderate rain", "icon": "10n"}, {
-        "id": 701,
-        "main": "Mist",
-        "description": "mist",
-        "icon": "50n"
-      }],
-      "base": "stations",
-      "main": {"temp": 284.96, "pressure": 1013, "humidity": 87, "temp_min": 283.71, "temp_max": 286.15},
-      "visibility": 5000,
-      "wind": {"speed": 2.6, "deg": 110},
-      "rain": {"1h": 2.54},
-      "clouds": {"all": 100},
-      "dt": 1570320784,
-      "sys": {"type": 1, "id": 1414, "message": 0.0106, "country": "GB", "sunrise": 1570342113, "sunset": 1570382923},
-      "timezone": 3600,
-      "id": 2643743,
-      "name": "London",
-      "cod": 200
+      loaded: false,
+      main: {
+        temp: 0
+      }
     }
   }
 
   componentDidMount() {
-    setTimeout(() => {this.setState({loaded: true, ...this.state})}, Math.random() * 3000)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.props.city}&appid=263bacc60191ddc5e17b82d2d0c753d4`)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({loaded: true, ...data})
+      })
+      .catch(console.log)
   }
 
   onRemoveCityClick() {
@@ -117,7 +107,7 @@ class CurrentWeather extends React.Component {
 
         </Grid>) :
         (
-          <LoadingSpinner textSize={this.props.isFavorite ? "h5" : "h3"} />
+          <LoadingSpinner textSize={this.props.isFavorite ? "h5" : "h3"}/>
         )
     )
   }
