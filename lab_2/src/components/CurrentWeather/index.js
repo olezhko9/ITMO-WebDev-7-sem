@@ -29,9 +29,15 @@ class CurrentWeather extends React.Component {
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.props.city}&appid=263bacc60191ddc5e17b82d2d0c753d4`)
       .then(res => res.json())
       .then((data) => {
-        this.setState({loaded: true, ...data})
+        if (data.cod == 200)
+          this.setState({loaded: true, ...data})
+        else if (data.cod == 404) {
+          this.props.removeCity(this.props.city)
+        }
       })
-      .catch(console.log)
+      .catch(e => {
+        console.log(e);
+      })
   }
 
   onRemoveCityClick() {
@@ -50,7 +56,7 @@ class CurrentWeather extends React.Component {
                 direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
             <Grid container item sm={this.props.isFavorite ? 4 : false} justify={"space-between"}>
               <Typography variant="h5" component="h2">
-                <b>{this.props.city}</b>
+                <b>{this.state.name}</b>
               </Typography>
               <Hidden smUp>
                 {this.props.isFavorite &&
@@ -86,7 +92,7 @@ class CurrentWeather extends React.Component {
 
             <Paper elevation={1} className={"weather-item"}>
               <span><b>Облачность</b></span>
-              <span>{this.state.clouds.all} %</span>
+              <span>{this.state.weather[0].description}</span>
             </Paper>
 
             <Paper elevation={1} className={"weather-item"}>
