@@ -25,14 +25,35 @@ class CurrentWeather extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.location !== this.props.location) {
+      this.getWeatherData()
+    }
+  }
+
   componentDidMount() {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.props.city}&appid=263bacc60191ddc5e17b82d2d0c753d4`)
+    this.getWeatherData()
+  }
+
+  getWeatherData() {
+    this.setState({...this.state, loaded: false})
+
+    let url = ''
+    const location = this.props.location
+
+    if (Array.isArray(location)) {
+      url = `http://api.openweathermap.org/data/2.5/weather?lat=${location[0]}&lon=${location[1]}&appid=263bacc60191ddc5e17b82d2d0c753d4`
+    } else if (typeof location === 'string' && location.length) {
+      url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=263bacc60191ddc5e17b82d2d0c753d4`
+    } else return
+
+    fetch(url)
       .then(res => res.json())
       .then((data) => {
         if (data.cod == 200)
-          this.setState({loaded: true, ...data})
+          this.setState({...this.state, ...data, loaded: true})
         else if (data.cod == 404) {
-          this.props.removeCity(this.props.city)
+          this.props.removeCity(this.props.location)
         }
       })
       .catch(e => {
@@ -41,7 +62,7 @@ class CurrentWeather extends React.Component {
   }
 
   onRemoveCityClick() {
-    this.props.removeCity(this.props.city)
+    this.props.removeCity(this.props.location)
   }
 
   render() {

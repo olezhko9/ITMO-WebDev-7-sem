@@ -33,12 +33,41 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      enteredCity: ''
+      enteredCity: '',
+      currentLocation: ''
+    }
+  }
+
+  componentDidMount() {
+    this.getLocation()
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position => {
+          this.setState({
+            ...this.state,
+            currentLocation: [position.coords.latitude, position.coords.longitude]
+          })
+        }),
+        (error) => {
+          if (error.code === error.PERMISSION_DENIED) {
+            console.log("User denied the request for Geolocation.");
+          }
+          this.setState({
+            ...this.state,
+            currentLocation: 'London'
+          })
+        });
+    } else {
+      console.log("Geolocation is disabled")
     }
   }
 
   onAddCityClick() {
-    this.props.addCity(this.state.enteredCity)
+    if (this.state.enteredCity !== "")
+      this.props.addCity(this.state.enteredCity)
   }
 
   onCityInput(e) {
@@ -65,7 +94,7 @@ class App extends React.Component {
           </Grid>
 
           <Grid container spacing={1} component={"section"}>
-            <CurrentWeather city={"London"} isFavorite={false}/>
+            <CurrentWeather key={"default"} location={this.state.currentLocation} isFavorite={false}/>
           </Grid>
 
           <Grid container component={"section"} alignItems={"center"}>
@@ -90,7 +119,7 @@ class App extends React.Component {
           <Grid container spacing={4} component={"section"}>
             {this.props.cities.map((city, index) =>
               <Grid key={index} item xs={12} md={6}>
-                <CurrentWeather city={city} isFavorite/>
+                <CurrentWeather location={city} isFavorite/>
               </Grid>
             )}
           </Grid>
