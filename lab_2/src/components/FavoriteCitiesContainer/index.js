@@ -2,7 +2,7 @@ import React from "react";
 
 import {Fab, Grid, TextField} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import AddIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import AddIcon from '@material-ui/icons/Add';
 
 import {addCity, removeCity} from "../../store/actions";
 import {connect} from 'react-redux';
@@ -50,7 +50,7 @@ class FavoriteCities extends React.Component {
               margin={"none"}
               onChange={this.onCityInput.bind(this)}
             />
-            <Fab size="small" color="primary" onClick={this.addCityToFavorite.bind(this)}>
+            <Fab size="small" color="primary" style={{marginTop: '0.5rem', marginLeft: '1rem'}} onClick={this.addCityToFavorite.bind(this)}>
               <AddIcon/>
             </Fab>
           </Grid>
