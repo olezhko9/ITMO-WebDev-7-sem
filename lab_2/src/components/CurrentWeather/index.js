@@ -8,9 +8,6 @@ import Hidden from "@material-ui/core/Hidden/index";
 import CloseIcon from '@material-ui/icons/Close';
 import LoadingSpinner from '../LoadingSpinner';
 
-import {connect} from 'react-redux';
-import {removeCity} from "../../store/actions";
-
 import './style.sass';
 
 class CurrentWeather extends React.Component {
@@ -87,7 +84,7 @@ class CurrentWeather extends React.Component {
               </Typography>
               <Hidden smUp>
                 {this.props.isFavorite &&
-                <Fab color="primary" size={"small"}>
+                <Fab color="primary" size={"small"} onClick={this.props.onRemoveCityClick.bind(this, this.props.location)}>
                   <CloseIcon/>
                 </Fab>
                 }
@@ -103,7 +100,7 @@ class CurrentWeather extends React.Component {
             <Hidden only="xs">
               <Grid container item sm={1} justify={"flex-end"}>
                 {this.props.isFavorite &&
-                <Fab color="primary" size={"small"} onClick={this.onRemoveCityClick.bind(this)}>
+                <Fab color="primary" size={"small"} onClick={this.props.onRemoveCityClick.bind(this, this.props.location)}>
                   <CloseIcon/>
                 </Fab>
                 }
@@ -140,14 +137,9 @@ class CurrentWeather extends React.Component {
         </Grid> 
       )
     }
-    
+
     return null;
   }
 }
 
-export default connect(
-  null,
-  {
-    removeCity
-  }
-)(CurrentWeather);
+export default CurrentWeather;

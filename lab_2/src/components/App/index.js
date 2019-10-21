@@ -7,7 +7,7 @@ import CurrentWeather from "../CurrentWeather";
 import Typography from "@material-ui/core/Typography";
 
 import {connect} from 'react-redux';
-import {addCity} from "../../store/actions";
+import {addCity, removeCity} from "../../store/actions";
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -65,9 +65,14 @@ class App extends React.Component {
     }
   }
 
-  onAddCityClick() {
+  addCityToFavorite() {
     if (this.state.enteredCity !== "")
       this.props.addCity(this.state.enteredCity)
+  }
+
+  removeCityFromFavorite(cityName) {
+    console.log(cityName)
+    this.props.removeCity(cityName)
   }
 
   onCityInput(e) {
@@ -110,7 +115,7 @@ class App extends React.Component {
                 margin={"none"}
                 onChange={this.onCityInput.bind(this)}
               />
-              <Fab size="small" color="primary" onClick={this.onAddCityClick.bind(this)}>
+              <Fab size="small" color="primary" onClick={this.addCityToFavorite.bind(this)}>
                 <AddIcon/>
               </Fab>
             </Grid>
@@ -119,7 +124,7 @@ class App extends React.Component {
           <Grid container spacing={4} component={"section"}>
             {this.props.cities.map((city, index) =>
               <Grid key={index} item xs={12} md={6}>
-                <CurrentWeather location={city} isFavorite/>
+                <CurrentWeather location={city} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}/>
               </Grid>
             )}
           </Grid>
@@ -135,7 +140,8 @@ export default connect(
     cities: state
   }),
   {
-    addCity
+    addCity,
+    removeCity
   }
 )(App);
 
