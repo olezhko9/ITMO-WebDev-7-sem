@@ -5,7 +5,7 @@ import {Container, Grid, Button, createMuiTheme, MuiThemeProvider} from '@materi
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 
-import CurrentWeather from "../CurrentWeather";
+import WeatherCard from "../WeatherCard";
 import FavoriteCitiesContainer from "../FavoriteCitiesContainer";
 
 const useStyles = makeStyles(theme => ({
@@ -83,7 +83,7 @@ class App extends React.Component {
             </Grid>
           </Grid>
 
-          <CurrentWeather key={"default"} location={this.state.currentLocation} isFavorite={false}/>
+          <WeatherCard key={"default"} location={this.state.currentLocation} isFavorite={false}/>
 
           <FavoriteCitiesContainer />
 

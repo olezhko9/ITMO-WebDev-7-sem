@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {addCity, removeCity} from "../../store/actions";
 import {connect} from 'react-redux';
 
-import CurrentWeather from "../CurrentWeather";
+import WeatherCard from "../WeatherCard";
 
 
 class FavoriteCities extends React.Component {
@@ -59,7 +59,7 @@ class FavoriteCities extends React.Component {
         <Grid container spacing={4} component={"section"}>
           {this.props.cities.map((city, index) =>
             <Grid key={index} item xs={12} md={6}>
-              <CurrentWeather location={city} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}/>
+              <WeatherCard location={city} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}/>
             </Grid>
           )}
         </Grid>

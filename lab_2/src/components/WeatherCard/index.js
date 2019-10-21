@@ -1,16 +1,15 @@
 import React from 'react';
 
-import {Grid} from '@material-ui/core/index';
+import {Grid, Paper, Fab, Hidden} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography/index';
-import Paper from "@material-ui/core/Paper/index";
-import Fab from "@material-ui/core/Fab/index";
-import Hidden from "@material-ui/core/Hidden/index";
 import CloseIcon from '@material-ui/icons/Close';
+
 import LoadingSpinner from '../LoadingSpinner';
 
 import './style.sass';
 
-class CurrentWeather extends React.Component {
+
+class WeatherCard extends React.Component {
 
   constructor(props) {
     super(props)
@@ -74,7 +73,7 @@ class CurrentWeather extends React.Component {
 
       return (
         <Grid container direction={this.props.isFavorite ? "column" : "row"} spacing={4}
-             className={`CurrentWeather ${this.props.isFavorite ? "isFavorite" : ""}`}>
+             className={`WeatherCard ${this.props.isFavorite ? "isFavorite" : ""}`}>
 
           <Grid container item xs={12} md={this.props.isFavorite ? 12 : 6}
                 direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
@@ -142,4 +141,4 @@ class CurrentWeather extends React.Component {
   }
 }
 
-export default CurrentWeather;
+export default WeatherCard;
