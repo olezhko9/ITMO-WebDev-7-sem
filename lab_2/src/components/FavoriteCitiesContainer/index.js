@@ -20,8 +20,10 @@ class FavoriteCities extends React.Component {
   }
 
   addCityToFavorite() {
-    if (this.state.enteredCity !== "")
+    if (this.state.enteredCity !== "") {
       this.props.addCity(this.state.enteredCity)
+      this.setState({enteredCity: ''})
+    }
   }
 
   removeCityFromFavorite(cityName) {
@@ -48,6 +50,7 @@ class FavoriteCities extends React.Component {
               label="Добавить новый город"
               placeholder="Город"
               margin={"none"}
+              value={this.state.enteredCity}
               onChange={this.onCityInput.bind(this)}
             />
             <Fab size="small" color="primary" style={{marginTop: '0.5rem', marginLeft: '1rem'}} onClick={this.addCityToFavorite.bind(this)}>
