@@ -18,10 +18,9 @@ class CurrentWeather extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      loaded: false,
-      main: {
-        temp: 0
-      }
+      isLoading: false,
+      error: null,
+      data: null
     }
   }
 
@@ -36,7 +35,7 @@ class CurrentWeather extends React.Component {
   }
 
   getWeatherData() {
-    this.setState({...this.state, loaded: false})
+    this.setState({...this.state, isLoading: true})
 
     let url = ''
     const location = this.props.location
@@ -51,7 +50,7 @@ class CurrentWeather extends React.Component {
       .then(res => res.json())
       .then((data) => {
         if (data.cod == 200)
-          this.setState({...this.state, ...data, loaded: true})
+          this.setState({...this.state, data: data, isLoading: false})
         else if (data.cod == 404) {
           this.props.removeCity(this.props.location)
         }
@@ -66,18 +65,25 @@ class CurrentWeather extends React.Component {
   }
 
   render() {
-    const K = 273.15; // для перевода Кельвин в Цельсия
-    const temperatureCelsius = Math.round(this.state.main.temp - K);
-    return (
-      this.state.loaded ?
-        (<Grid container direction={this.props.isFavorite ? "column" : "row"} spacing={4}
-               className={`CurrentWeather ${this.props.isFavorite ? "isFavorite" : ""}`}>
+    const { data, isLoading, error} = this.state;
+
+    if (isLoading) {
+      return ( <LoadingSpinner textSize={this.props.isFavorite ? "h5" : "h3"}/> )
+    }
+
+    if (data) {
+      const K = 273.15; // для перевода Кельвин в Цельсия
+      const temperatureCelsius = Math.round(data.main.temp - K);
+
+      return (
+        <Grid container direction={this.props.isFavorite ? "column" : "row"} spacing={4}
+             className={`CurrentWeather ${this.props.isFavorite ? "isFavorite" : ""}`}>
 
           <Grid container item xs={12} md={this.props.isFavorite ? 12 : 6}
                 direction={this.props.isFavorite ? "row" : "column"} alignItems={"center"} className={"weather-main"}>
             <Grid container item sm={this.props.isFavorite ? 4 : false} justify={"space-between"}>
               <Typography variant="h5" component="h2">
-                <b>{this.state.name}</b>
+                <b>{data.name}</b>
               </Typography>
               <Hidden smUp>
                 {this.props.isFavorite &&
@@ -89,7 +95,7 @@ class CurrentWeather extends React.Component {
             </Grid>
             <Grid item container sm={this.props.isFavorite ? 7 : false} alignItems={"center"}
                   justify={"space-evenly"} className={"weather-temperature"}>
-              <img src={`http://openweathermap.org/img/wn/${this.state.weather[0].icon}@2x.png`} alt=""/>
+              <img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt=""/>
               <Typography variant={this.props.isFavorite ? "h3" : "h1"} component="h2">
                 {temperatureCelsius}°C
               </Typography>
@@ -108,35 +114,34 @@ class CurrentWeather extends React.Component {
           <Grid item xs={12} md={this.props.isFavorite ? 12 : 6} className={"weather-items"}>
             <Paper elevation={1} className={"weather-item"}>
               <span><b>Ветер</b></span>
-              <span>{this.state.wind.speed} м/с</span>
+              <span>{data.wind.speed} м/с</span>
             </Paper>
 
             <Paper elevation={1} className={"weather-item"}>
               <span><b>Облачность</b></span>
-              <span>{this.state.weather[0].description}</span>
+              <span>{data.weather[0].description}</span>
             </Paper>
 
             <Paper elevation={1} className={"weather-item"}>
               <span><b>Давление</b></span>
-              <span>{this.state.main.pressure} hpa</span>
+              <span>{data.main.pressure} hpa</span>
             </Paper>
 
             <Paper elevation={1} className={"weather-item"}>
               <span><b>Влажность</b></span>
-              <span>{this.state.main.humidity} %</span>
+              <span>{data.main.humidity} %</span>
             </Paper>
 
             <Paper elevation={1} className={"weather-item"}>
               <span><b>Координаты</b></span>
-              <span>[{this.state.coord.lon}, {this.state.coord.lat}]</span>
+              <span>[{data.coord.lon}, {data.coord.lat}]</span>
             </Paper>
           </Grid>
-
-        </Grid>) :
-        (
-          <LoadingSpinner textSize={this.props.isFavorite ? "h5" : "h3"}/>
-        )
-    )
+        </Grid> 
+      )
+    }
+    
+    return null;
   }
 }
 
