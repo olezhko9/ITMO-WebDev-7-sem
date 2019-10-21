@@ -3,11 +3,12 @@ import Typography from "@material-ui/core/Typography/index";
 import {RingLoader} from "react-spinners/index";
 import React from "react";
 
-function LoadingSpinner(props) {
+
+function LoadingSpinner() {
   return (
     <Grid container justify={"center"}>
       <Grid container justify={"center"}>
-        <Typography variant={props.textSize} component="h3" gutterBottom>
+        <Typography variant={"h5"} component="h3" align={"center"} gutterBottom>
           Подождите, данные загружаются
         </Typography>
       </Grid>

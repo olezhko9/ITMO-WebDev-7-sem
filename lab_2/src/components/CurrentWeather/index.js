@@ -65,7 +65,7 @@ class CurrentWeather extends React.Component {
     const { data, isLoading, error} = this.state;
 
     if (isLoading) {
-      return ( <LoadingSpinner textSize={this.props.isFavorite ? "h5" : "h3"}/> )
+      return ( <LoadingSpinner/> )
     }
 
     if (data) {
@@ -134,7 +134,7 @@ class CurrentWeather extends React.Component {
               <span>[{data.coord.lon}, {data.coord.lat}]</span>
             </Paper>
           </Grid>
-        </Grid> 
+        </Grid>
       )
     }
 
