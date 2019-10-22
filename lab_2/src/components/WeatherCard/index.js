@@ -12,6 +12,15 @@ import './style.sass';
 export default function WeatherCard(props) {
   const data = props.cityWeatherData;
 
+  if (data && data.error) {
+    props.onFetchError()
+    return null;
+  }
+
+  if (!data || data.isLoading) {
+    return (<LoadingSpinner/>);
+  }
+
   if (data) {
     const K = 273.15; // для перевода Кельвин в Цельсия
     const temperatureCelsius = Math.round(data.main.temp - K);
@@ -82,7 +91,5 @@ export default function WeatherCard(props) {
         </Grid>
       </Grid>
     )
-  } else {
-    return (<LoadingSpinner/>)
   }
 }
