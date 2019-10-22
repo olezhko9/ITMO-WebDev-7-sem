@@ -33,7 +33,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentLocation: ''
+      currentLocation: '',
+      geoLocationStatus: ''
     }
   }
 
@@ -46,7 +47,7 @@ class App extends React.Component {
       navigator.geolocation.getCurrentPosition(
         (position => {
           this.setState({
-            ...this.state,
+            geoLocationStatus: 'enabled',
             currentLocation: [position.coords.latitude, position.coords.longitude]
           })
         }),
@@ -55,12 +56,13 @@ class App extends React.Component {
             console.log("User denied the request for Geolocation.");
           }
           this.setState({
-            ...this.state,
+            geoLocationStatus: 'disabled',
             currentLocation: 'London'
           })
         });
     } else {
       console.log("Geolocation is disabled")
+      this.setState({geoLocationStatus: 'disabled'})
     }
   }
 
@@ -82,6 +84,15 @@ class App extends React.Component {
                   Обновить геолокацию
                 </Button>
               </Grid>
+              { this.state.geoLocationStatus === 'disabled' ?
+                (
+                  <Grid container item xs={12} sm={12} md={12}>
+                    <Typography variant="h5" component="h3" color={"error"}>
+                      Геолокация недоступна
+                    </Typography>
+                  </Grid>
+                ) : ('')
+              }
             </Grid>
 
             <WeatherCard key={"default"} location={this.state.currentLocation} isFavorite={false}/>
