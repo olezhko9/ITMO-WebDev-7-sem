@@ -4,9 +4,11 @@ import '../style/main.sass'
 const weatherTemplate = require('../components/weather.pug')
 
 $(function () {
-  $('#search-btn').click(async function () {
-    $('#search-btn').addClass('loading')
+
+  $('#city-form').submit(async function (event) {
+    event.preventDefault()
     const weatherData = await getWeather($('#city-input').val())
+    $('#city-input').val('')
 
     const weatherComponent = weatherTemplate({
       weather: weatherData
