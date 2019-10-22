@@ -1,8 +1,9 @@
 import React from "react";
 
-import {Fab, Grid, TextField} from "@material-ui/core";
+import {Fab, Grid, TextField, Snackbar, IconButton} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 
 import {addCity, removeCity} from "../../store/actions";
 import {connect} from 'react-redux';
@@ -15,7 +16,8 @@ class FavoriteCities extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      enteredCity: ''
+      enteredCity: '',
+      snackOpened: false
     }
   }
 
@@ -33,6 +35,18 @@ class FavoriteCities extends React.Component {
   onCityInput(e) {
     const city = e.target.value
     this.setState({enteredCity: city})
+  }
+
+  handleCityFetchError(city) {
+    this.removeCityFromFavorite(city)
+    this.setState({snackOpened: true})
+  }
+
+  handleSnackbarClose(event, reason) {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({snackOpened: false})
   }
 
   render() {
@@ -62,10 +76,35 @@ class FavoriteCities extends React.Component {
         <Grid container spacing={4} component={"section"}>
           {this.props.cities.map((city, index) =>
             <Grid key={index} item xs={12} md={6}>
-              <WeatherCard location={city} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}/>
+              <WeatherCard location={city} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
+                onFetchError={this.handleCityFetchError.bind(this, city)}/>
             </Grid>
           )}
         </Grid>
+
+        <Snackbar
+
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snackOpened}
+          autoHideDuration={3000}
+          onClose={this.handleSnackbarClose.bind(this)}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Город или погода не найдены</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="close"
+              color="inherit"
+              onClick={this.handleSnackbarClose.bind(this)}>
+              <CloseIcon />
+            </IconButton>,
+          ]}
+        />
 
       </Grid>
     )

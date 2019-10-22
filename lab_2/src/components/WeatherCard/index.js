@@ -46,14 +46,16 @@ class WeatherCard extends React.Component {
       .then(res => res.json())
       .then((data) => {
         if (data.cod == 200)
-          this.setState({...this.state, data: data, isLoading: false})
+          this.setState({...this.state, data: data})
         else if (data.cod == 404) {
-          this.props.removeCity(this.props.location)
+          this.props.onFetchError()
         }
       })
       .catch(e => {
-        console.log(e);
+        this.props.onFetchError(this.props.location)
       })
+
+    this.setState({isLoading: false})
   }
 
   onRemoveCityClick() {
