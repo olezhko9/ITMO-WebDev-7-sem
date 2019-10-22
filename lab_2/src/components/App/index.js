@@ -4,6 +4,7 @@ import './App.css';
 import {Container, Grid, Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core'
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
+import { SnackbarProvider } from 'notistack';
 
 import WeatherCard from "../WeatherCard";
 import FavoriteCitiesContainer from "../FavoriteCitiesContainer";
@@ -64,30 +65,31 @@ class App extends React.Component {
   }
 
 
-
   render() {
     // const styles = useStyles()
     return (
       <MuiThemeProvider theme={theme}>
-        <Container maxWidth={"lg"}>
-          <Grid container spacing={1} component={"section"}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Typography variant="h4" component="h2">
-                Погода здесь
-              </Typography>
+        <SnackbarProvider maxSnack={3}>
+          <Container maxWidth={"lg"}>
+            <Grid container spacing={1} component={"section"}>
+              <Grid item xs={12} sm={6} md={4}>
+                <Typography variant="h4" component="h2">
+                  Погода здесь
+                </Typography>
+              </Grid>
+              <Grid container item xs={12} sm={6} md={4}>
+                <Button variant="contained" color="primary" fullWidth>
+                  Обновить геолокацию
+                </Button>
+              </Grid>
             </Grid>
-            <Grid container item xs={12} sm={6} md={4}>
-              <Button variant="contained" color="primary" fullWidth>
-                Обновить геолокацию
-              </Button>
-            </Grid>
-          </Grid>
 
-          <WeatherCard key={"default"} location={this.state.currentLocation} isFavorite={false}/>
+            <WeatherCard key={"default"} location={this.state.currentLocation} isFavorite={false}/>
 
-          <FavoriteCitiesContainer />
+            <FavoriteCitiesContainer/>
 
-        </Container>
+          </Container>
+        </SnackbarProvider>
       </MuiThemeProvider>
     );
   }
