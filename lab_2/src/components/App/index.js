@@ -2,19 +2,13 @@ import React from 'react';
 import './App.css';
 
 import {Container, Grid, Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core'
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import Typography from "@material-ui/core/Typography";
 import { SnackbarProvider } from 'notistack';
 
 import WeatherCard from "../WeatherCard";
 import FavoriteCitiesContainer from "../FavoriteCitiesContainer";
+import {fetchWeather} from "../../services/weather";
 
-const useStyles = makeStyles(theme => ({
-  fab: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(2)
-  },
-}));
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -34,30 +28,31 @@ class App extends React.Component {
     super(props)
     this.state = {
       currentLocation: '',
-      geoLocationStatus: ''
+      geoLocationStatus: '',
+      currentLocationWeather: null
     }
   }
 
   componentDidMount() {
-    this.getLocation()
+    this.getLocationWeather()
   }
 
-  getLocation() {
+  getLocationWeather() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position => {
+        (async position => {
           this.setState({
             geoLocationStatus: 'enabled',
-            currentLocation: [position.coords.latitude, position.coords.longitude]
+            currentLocationWeather: await fetchWeather([position.coords.latitude, position.coords.longitude])
           })
         }),
-        (error) => {
+        async (error) => {
           if (error.code === error.PERMISSION_DENIED) {
             console.log("User denied the request for Geolocation.");
           }
           this.setState({
             geoLocationStatus: 'disabled',
-            currentLocation: 'London'
+            currentLocationWeather: await fetchWeather('lodnon')
           })
         });
     } else {
@@ -68,7 +63,6 @@ class App extends React.Component {
 
 
   render() {
-    // const styles = useStyles()
     return (
       <MuiThemeProvider theme={theme}>
         <SnackbarProvider maxSnack={3}>
@@ -95,7 +89,7 @@ class App extends React.Component {
               }
             </Grid>
 
-            <WeatherCard key={"default"} location={this.state.currentLocation} isFavorite={false}/>
+            <WeatherCard key={"default"} cityWeatherData={this.state.currentLocationWeather} isFavorite={false}/>
 
             <FavoriteCitiesContainer/>
 

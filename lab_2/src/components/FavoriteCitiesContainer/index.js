@@ -20,10 +20,6 @@ class FavoriteCities extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // this.props.getCitiesWeather()
-  }
-
   addCityToFavorite() {
     if (this.state.enteredCity !== "") {
       this.props.addCity(this.state.enteredCity)
@@ -76,7 +72,7 @@ class FavoriteCities extends React.Component {
         <Grid container spacing={4} component={"section"}>
           {this.props.cities.map((cityWeather, index) =>
             <Grid key={index} item xs={12} md={6}>
-              <WeatherCard location={cityWeather.name} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
+              <WeatherCard cityWeatherData={cityWeather} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
                            onFetchError={this.handleCityFetchError.bind(this, cityWeather.name)}/>
             </Grid>
           )}
