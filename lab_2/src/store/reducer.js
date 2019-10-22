@@ -6,7 +6,7 @@ const reducer = (state = [], action) => {
     ];
   }
   else if (action.type === "REMOVE_CITY") {
-    return state.filter(city => city !== action.payload)
+    return state.filter(city => city.name !== action.payload)
   }
   else if (action.type === "FETCH_CITIES_WEATHER") {
     return action.payload

@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
 import {withSnackbar} from "notistack";
 
-import {addCity, removeCity, getCitiesWeather} from "../../store/actions";
+import {addCity, removeCity} from "../../store/actions";
 import {connect} from 'react-redux';
 
 import WeatherCard from "../WeatherCard";
@@ -21,7 +21,7 @@ class FavoriteCities extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCitiesWeather()
+    // this.props.getCitiesWeather()
   }
 
   addCityToFavorite() {
@@ -74,10 +74,10 @@ class FavoriteCities extends React.Component {
         </Grid>
 
         <Grid container spacing={4} component={"section"}>
-          {this.props.cities.map((city, index) =>
+          {this.props.cities.map((cityWeather, index) =>
             <Grid key={index} item xs={12} md={6}>
-              <WeatherCard location={city} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
-                           onFetchError={this.handleCityFetchError.bind(this, city)}/>
+              <WeatherCard location={cityWeather.name} isFavorite onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
+                           onFetchError={this.handleCityFetchError.bind(this, cityWeather.name)}/>
             </Grid>
           )}
         </Grid>
@@ -94,8 +94,7 @@ export default withSnackbar(
     }),
     {
       addCity,
-      removeCity,
-      getCitiesWeather
+      removeCity
     }
   )(FavoriteCities)
 );
