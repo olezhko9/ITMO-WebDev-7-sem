@@ -41,19 +41,29 @@ class App extends React.Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (async position => {
+          let weather = await fetchWeather([position.coords.latitude, position.coords.longitude])
           this.setState({
-            geoLocationStatus: 'enabled',
-            currentLocationWeather: await fetchWeather([position.coords.latitude, position.coords.longitude])
+            geoLocationStatus: 'enabled'
           })
+          if (weather.cod != 200) {
+            this.setState({currentLocationWeather: {error: true}})
+          } else {
+            this.setState({currentLocationWeather: weather})
+          }
         }),
         async (error) => {
           if (error.code === error.PERMISSION_DENIED) {
             console.log("User denied the request for Geolocation.");
           }
+          let weather = await fetchWeather('lodnon')
           this.setState({
-            geoLocationStatus: 'disabled',
-            currentLocationWeather: await fetchWeather('lodnon')
+            geoLocationStatus: 'disabled'
           })
+          if (weather.cod != 200) {
+            this.setState({currentLocationWeather: {error: true}})
+          } else {
+            this.setState({currentLocationWeather: weather})
+          }
         });
     } else {
       console.log("Geolocation is disabled")
