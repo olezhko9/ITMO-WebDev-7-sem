@@ -74,7 +74,7 @@ class App extends React.Component {
                 </Typography>
               </Grid>
               <Grid container item xs={12} sm={6} md={4}>
-                <Button variant="contained" color="primary" fullWidth>
+                <Button variant="contained" color="primary" fullWidth onClick={this.getLocationWeather.bind(this)}>
                   Обновить геолокацию
                 </Button>
               </Grid>
