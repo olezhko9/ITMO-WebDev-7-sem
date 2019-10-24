@@ -37,6 +37,8 @@ class App extends React.Component {
   }
 
   async getLocationWeather() {
+    this.setState({currentLocationWeather: null});
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (async position => {
@@ -76,7 +78,7 @@ class App extends React.Component {
                 </Typography>
               </Grid>
               <Grid container item xs={12} sm={6} md={4}>
-                <Button variant="contained" color="primary" fullWidth>
+                <Button variant="contained" color="primary" onClick={this.getLocationWeather.bind(this)} fullWidth>
                   Обновить геолокацию
                 </Button>
               </Grid>
