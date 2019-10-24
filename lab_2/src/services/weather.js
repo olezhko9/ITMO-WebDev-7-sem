@@ -7,7 +7,5 @@ export function fetchWeather(location) {
     url = `http://api.openweathermap.org/data/2.5/weather?q=${location}&appid=263bacc60191ddc5e17b82d2d0c753d4`
   } else return
 
-  return fetch(url)
-    .then(res => res.json())
-    .catch(e => console.log)
+  return fetch(url).then(res => res.json())
 }

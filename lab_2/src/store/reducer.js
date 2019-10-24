@@ -1,6 +1,17 @@
 const reducer = (state = [], action) => {
-  if (action.type === "ADD_CITY" || action.type === "ADD_CITY_ERROR" ) {
 
+  if (action.type === "ADD_CITY_SUCCESS") {
+    return state.map((city, index) => {
+      if (city.name.toLowerCase() === action.payload.name.toLowerCase())
+        return action.payload
+
+      return city
+    })
+  }
+
+  else if (action.type === "ADD_CITY_ERROR" ) {
+
+    console.log(action.payload);
     return state.map((city, index) => {
       if (city.name.toLowerCase() === action.payload.name.toLowerCase())
         return action.payload
