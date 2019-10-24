@@ -20,13 +20,6 @@ class FavoriteCities extends React.Component {
     }
   }
 
-  addCityToFavorite() {
-    if (this.state.enteredCity !== "") {
-      this.props.addCity(this.state.enteredCity)
-      this.setState({enteredCity: ''})
-    }
-  }
-
   removeCityFromFavorite(cityName) {
     this.props.removeCity(cityName)
   }
@@ -44,6 +37,14 @@ class FavoriteCities extends React.Component {
     });
   }
 
+  addCityToFavorite(e) {
+    e.preventDefault()
+    if (this.state.enteredCity !== "") {
+      this.props.addCity(this.state.enteredCity)
+      this.setState({enteredCity: ''})
+    }
+  }
+
   render() {
     return (
       <Grid>
@@ -55,17 +56,19 @@ class FavoriteCities extends React.Component {
             </Typography>
           </Grid>
           <Grid container item xs={12} sm={7} className={"addCityInput"}>
-            <TextField
-              label="Добавить новый город"
-              placeholder="Город"
-              margin={"none"}
-              value={this.state.enteredCity}
-              onChange={this.onCityInput.bind(this)}
-            />
-            <Fab size="small" color="primary" style={{marginTop: '0.5rem', marginLeft: '1rem'}}
-                 onClick={this.addCityToFavorite.bind(this)}>
-              <AddIcon/>
-            </Fab>
+            <form onSubmit={this.addCityToFavorite.bind(this)}>
+              <TextField
+                label="Добавить новый город"
+                placeholder="Город"
+                margin={"none"}
+                name={"city"}
+                value={this.state.enteredCity}
+                onChange={this.onCityInput.bind(this)}
+              />
+              <Fab size="small" color="primary" style={{marginTop: '0.5rem', marginLeft: '1rem'}} type={"submit"}>
+                <AddIcon/>
+              </Fab>
+            </form>
           </Grid>
         </Grid>
 
