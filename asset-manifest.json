@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/ITMO-WebDev-7-sem/lab_2/static/css/main.9a498bcb.chunk.css",
+    "main.js": "/ITMO-WebDev-7-sem/lab_2/static/js/main.331d537c.chunk.js",
+    "main.js.map": "/ITMO-WebDev-7-sem/lab_2/static/js/main.331d537c.chunk.js.map",
+    "runtime-main.js": "/ITMO-WebDev-7-sem/lab_2/static/js/runtime-main.01c4ba67.js",
+    "runtime-main.js.map": "/ITMO-WebDev-7-sem/lab_2/static/js/runtime-main.01c4ba67.js.map",
+    "static/js/2.f49245bf.chunk.js": "/ITMO-WebDev-7-sem/lab_2/static/js/2.f49245bf.chunk.js",
+    "static/js/2.f49245bf.chunk.js.map": "/ITMO-WebDev-7-sem/lab_2/static/js/2.f49245bf.chunk.js.map",
+    "index.html": "/ITMO-WebDev-7-sem/lab_2/index.html",
+    "precache-manifest.8dc3d1bfceeac2c514c399f6a313e2de.js": "/ITMO-WebDev-7-sem/lab_2/precache-manifest.8dc3d1bfceeac2c514c399f6a313e2de.js",
+    "service-worker.js": "/ITMO-WebDev-7-sem/lab_2/service-worker.js",
+    "static/css/main.9a498bcb.chunk.css.map": "/ITMO-WebDev-7-sem/lab_2/static/css/main.9a498bcb.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.01c4ba67.js",
+    "static/js/2.f49245bf.chunk.js",
+    "static/css/main.9a498bcb.chunk.css",
+    "static/js/main.331d537c.chunk.js"
+  ]
+}
