@@ -10,18 +10,16 @@ import './style.sass';
 
 
 export default function WeatherCard(props) {
-  const data = props.cityWeatherData;
+  const data = props.cityWeatherData;;
 
-  if (data && data.error) {
-    props.onFetchError()
-    return null;
+  if (!data || data && data.isLoading) return (<LoadingSpinner/>);
+
+  if (data && data.cod != 200) {
+    if ('onFetchError' in props) props.onFetchError()
+    return (<p>К сожалению, не получилось получить данные о погоде...</p>)
   }
 
-  if (!data || data.isLoading) {
-    return (<LoadingSpinner/>);
-  }
-
-  if (data) {
+  if (data && data.cod == 200) {
     const K = 273.15; // для перевода Кельвин в Цельсия
     const temperatureCelsius = Math.round(data.main.temp - K);
 
@@ -92,4 +90,5 @@ export default function WeatherCard(props) {
       </Grid>
     )
   }
+  return null;
 }

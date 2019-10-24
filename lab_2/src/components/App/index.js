@@ -27,7 +27,6 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentLocation: '',
       geoLocationStatus: '',
       currentLocationWeather: null
     }
@@ -37,7 +36,7 @@ class App extends React.Component {
     this.getLocationWeather()
   }
 
-  getLocationWeather() {
+  async getLocationWeather() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (async position => {
@@ -52,12 +51,15 @@ class App extends React.Component {
           }
           this.setState({
             geoLocationStatus: 'disabled',
-            currentLocationWeather: await fetchWeather('lodnon')
+            currentLocationWeather: await fetchWeather('London')
           })
         });
     } else {
       console.log("Geolocation is disabled")
-      this.setState({geoLocationStatus: 'disabled'})
+      this.setState({
+        geoLocationStatus: 'disabled',
+        currentLocationWeather: await fetchWeather('London')
+      })
     }
   }
 

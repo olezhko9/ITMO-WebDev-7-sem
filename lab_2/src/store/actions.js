@@ -18,7 +18,7 @@ export const addCity = (city) => async dispatch => {
         type: "ADD_CITY_ERROR",
         payload: {
           name: city,
-          error: true
+          ...weather
         }
       });
     }
@@ -34,7 +34,7 @@ export const addCity = (city) => async dispatch => {
       type: "ADD_CITY_ERROR",
       payload: {
         name: city,
-        error: true
+        ...weather
       }
     });
   }
