@@ -7,7 +7,10 @@ $(function () {
 
   $('#city-form').submit(async function (event) {
     event.preventDefault()
-    const weatherData = await getWeather($('#city-input').val())
+    $('#search-btn').addClass('loading')
+
+    const city = $(this).serializeArray()[0].value
+    const weatherData = await getWeather(city)
     $('#city-input').val('')
 
     const weatherComponent = weatherTemplate({
