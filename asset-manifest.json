@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ITMO-WebDev-7-sem/static/css/main.9a498bcb.chunk.css",
-    "main.js": "/ITMO-WebDev-7-sem/static/js/main.6788ed6a.chunk.js",
-    "main.js.map": "/ITMO-WebDev-7-sem/static/js/main.6788ed6a.chunk.js.map",
+    "main.js": "/ITMO-WebDev-7-sem/static/js/main.e924828d.chunk.js",
+    "main.js.map": "/ITMO-WebDev-7-sem/static/js/main.e924828d.chunk.js.map",
     "runtime-main.js": "/ITMO-WebDev-7-sem/static/js/runtime-main.665b11b4.js",
     "runtime-main.js.map": "/ITMO-WebDev-7-sem/static/js/runtime-main.665b11b4.js.map",
     "static/js/2.f49245bf.chunk.js": "/ITMO-WebDev-7-sem/static/js/2.f49245bf.chunk.js",
     "static/js/2.f49245bf.chunk.js.map": "/ITMO-WebDev-7-sem/static/js/2.f49245bf.chunk.js.map",
     "index.html": "/ITMO-WebDev-7-sem/index.html",
-    "precache-manifest.e728a0d76435d57c398308672a5b5aaa.js": "/ITMO-WebDev-7-sem/precache-manifest.e728a0d76435d57c398308672a5b5aaa.js",
+    "precache-manifest.6d3a797a8e34831d3b15939806bf4ef1.js": "/ITMO-WebDev-7-sem/precache-manifest.6d3a797a8e34831d3b15939806bf4ef1.js",
     "service-worker.js": "/ITMO-WebDev-7-sem/service-worker.js",
     "static/css/main.9a498bcb.chunk.css.map": "/ITMO-WebDev-7-sem/static/css/main.9a498bcb.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.665b11b4.js",
     "static/js/2.f49245bf.chunk.js",
     "static/css/main.9a498bcb.chunk.css",
-    "static/js/main.6788ed6a.chunk.js"
+    "static/js/main.e924828d.chunk.js"
   ]
 }
