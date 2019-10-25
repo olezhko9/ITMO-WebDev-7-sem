@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ITMO-WebDev-7-sem/precache-manifest.6d3a797a8e34831d3b15939806bf4ef1.js"
+  "/ITMO-WebDev-7-sem/precache-manifest.840e830aea7970563ccd4906fd346c10.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2a2377057ffe3056374e54a1664b04e4",
+    "revision": "5b03c2f8ec07f5e3cdc797ef15db6081",
     "url": "/ITMO-WebDev-7-sem/index.html"
   },
   {
-    "revision": "2ba7bd87f215ce3e15fe",
+    "revision": "ec0e0d3d83d2bdf181b2",
     "url": "/ITMO-WebDev-7-sem/static/css/main.9a498bcb.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ITMO-WebDev-7-sem/static/js/2.f49245bf.chunk.js"
   },
   {
-    "revision": "2ba7bd87f215ce3e15fe",
-    "url": "/ITMO-WebDev-7-sem/static/js/main.e924828d.chunk.js"
+    "revision": "ec0e0d3d83d2bdf181b2",
+    "url": "/ITMO-WebDev-7-sem/static/js/main.6332f912.chunk.js"
   },
   {
     "revision": "448214e921fb072c1487",
