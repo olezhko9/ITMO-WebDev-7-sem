@@ -31,7 +31,9 @@ const reducer = (state = [], action) => {
   }
 
   else if (action.type === "REMOVE_CITY") {
-    return state.filter(city => city.name !== action.payload)
+    return {
+      favorites: state.favorites.filter(city => city.name !== action.payload)
+    }
   }
 
   return state;
