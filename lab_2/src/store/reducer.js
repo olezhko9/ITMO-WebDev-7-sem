@@ -1,30 +1,33 @@
 const reducer = (state = [], action) => {
 
   if (action.type === "ADD_CITY_SUCCESS") {
-    return state.map((city, index) => {
-      if (city.name.toLowerCase() === action.payload.name.toLowerCase())
-        return action.payload
+    return {
+      favorites: state.favorites.map((city, index) => {
+        if (city.name.toLowerCase() === action.payload.name.toLowerCase())
+          return action.payload
 
-      return city
-    })
+        return city
+      })
+    }
   }
 
   else if (action.type === "ADD_CITY_ERROR" ) {
+    return {
+      favorites: state.favorites.map((city, index) => {
+        if (city.name.toLowerCase() === action.payload.name.toLowerCase())
+          return action.payload
 
-    console.log(action.payload);
-    return state.map((city, index) => {
-      if (city.name.toLowerCase() === action.payload.name.toLowerCase())
-        return action.payload
-
-      return city
-    })
+        return city
+      })
+    }
   }
 
   else if (action.type === "ADD_CITY_LOADING") {
-    return [
-      ...state,
+    return {
+      favorites: [
+      ...state.favorites,
       action.payload
-    ];
+    ]};
   }
 
   else if (action.type === "REMOVE_CITY") {

@@ -4,8 +4,10 @@ import {composeWithDevTools} from "redux-devtools-extension";
 
 import reducer from "./reducer";
 
-const STORAGE_KEY = 'weather-cities'
-const preloadedState = localStorage[STORAGE_KEY] ? JSON.parse(localStorage[STORAGE_KEY]) : []
+const STORAGE_KEY = 'favorite-cities-weather'
+const preloadedState = {
+  favorites: localStorage[STORAGE_KEY] ? JSON.parse(localStorage[STORAGE_KEY]) : []
+}
 
 const store = createStore(
   reducer,
@@ -14,7 +16,7 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  localStorage[STORAGE_KEY] = JSON.stringify(store.getState())
+  localStorage[STORAGE_KEY] = JSON.stringify(store.getState().favorites)
 })
 
 export default store;

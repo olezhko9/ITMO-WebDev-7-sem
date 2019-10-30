@@ -89,7 +89,7 @@ class FavoriteCities extends React.Component {
 export default withSnackbar(
   connect(
     state => ({
-      cities: state
+      cities: state.favorites
     }),
     {
       addCity,
