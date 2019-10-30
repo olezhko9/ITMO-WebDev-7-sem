@@ -16,7 +16,13 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-  localStorage[STORAGE_KEY] = JSON.stringify(store.getState().favorites.map(favorite => favorite.name))
+  localStorage[STORAGE_KEY] = JSON.stringify(
+    store.getState().favorites.map(favorite => {
+      return {
+        name: favorite.name
+      }
+    })
+  )
 })
 
 export default store;

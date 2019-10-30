@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
 import {withSnackbar} from "notistack";
 
-import {addCity, removeCity} from "../../store/actions";
+import {addCity, fetchCity, removeCity} from "../../store/actions";
 import {connect} from 'react-redux';
 
 import WeatherCard from "../WeatherCard";
@@ -18,6 +18,12 @@ class FavoriteCities extends React.Component {
     this.state = {
       enteredCity: '',
     }
+  }
+
+  componentDidMount() {
+    this.props.cities.forEach(city => {
+      this.props.fetchCity(city.name)
+    })
   }
 
   removeCityFromFavorite(cityName) {
@@ -41,6 +47,7 @@ class FavoriteCities extends React.Component {
     e.preventDefault()
     if (this.state.enteredCity !== "") {
       this.props.addCity(this.state.enteredCity)
+      this.props.fetchCity(this.state.enteredCity)
       this.setState({enteredCity: ''})
     }
   }
@@ -97,6 +104,7 @@ export default withSnackbar(
     }),
     {
       addCity,
+      fetchCity,
       removeCity
     }
   )(FavoriteCities)

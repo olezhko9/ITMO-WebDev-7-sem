@@ -12,9 +12,7 @@ import './style.sass';
 export default function WeatherCard(props) {
   const data = props.cityWeatherData;;
 
-  if (!data || data && data.isLoading) return (<LoadingSpinner/>);
-
-  if (data && data.cod != 200) {
+  if (data && data.cod && data.cod != 200) {
     if ('onFetchError' in props) props.onFetchError()
     return (<p>К сожалению, не получилось получить данные о погоде...</p>)
   }
@@ -90,5 +88,5 @@ export default function WeatherCard(props) {
       </Grid>
     )
   }
-  return null;
+  return (<LoadingSpinner/>);
 }
