@@ -1,8 +1,17 @@
 import {fetchWeather} from "../services/weather";
+import {ADD_CITY, FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} from "./actionTypes"
 
-export const addCity = (city) => async dispatch => {
+
+export const addCity = city => ({
+  type: ADD_CITY,
+  payload: {
+    name: city
+  }
+})
+
+export const fetchCity = (city) => async dispatch => {
   dispatch({
-    type: "ADD_CITY_LOADING",
+    type: FETCH_CITY_LOADING,
     payload: {
       name: city,
       isLoading: true
@@ -14,24 +23,18 @@ export const addCity = (city) => async dispatch => {
     weather = await fetchWeather(city);
 
     if (weather.cod != 200) {
-      dispatch({
-        type: "ADD_CITY_ERROR",
-        payload: {
-          name: city,
-          ...weather
-        }
-      });
+      throw new Error("City not found")
     }
     else {
       dispatch({
-        type: "ADD_CITY_SUCCESS",
+        type: FETCH_CITY_SUCCESS,
         payload: weather
       });
     }
 
   } catch (e) {
     dispatch({
-      type: "ADD_CITY_ERROR",
+      type: FETCH_CITY_ERROR,
       payload: {
         name: city,
         ...weather
@@ -41,6 +44,6 @@ export const addCity = (city) => async dispatch => {
 }
 
 export const removeCity = city => ({
-  type: "REMOVE_CITY",
+  type: REMOVE_CITY,
   payload: city
 });
