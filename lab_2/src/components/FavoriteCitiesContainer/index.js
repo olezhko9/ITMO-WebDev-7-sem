@@ -10,6 +10,8 @@ import {connect} from 'react-redux';
 
 import WeatherCard from "../WeatherCard";
 
+const IS_FAVORITE = true
+
 
 class FavoriteCities extends React.Component {
 
@@ -22,12 +24,12 @@ class FavoriteCities extends React.Component {
 
   componentDidMount() {
     this.props.cities.forEach(city => {
-      this.props.fetchCity(city.name)
+      this.props.fetchCity(city.name, IS_FAVORITE)
     })
   }
 
   removeCityFromFavorite(cityName) {
-    this.props.removeCity(cityName)
+    this.props.removeCity(cityName, IS_FAVORITE)
   }
 
   onCityInput(e) {
@@ -46,7 +48,7 @@ class FavoriteCities extends React.Component {
   addCityToFavorite(e) {
     e.preventDefault()
     if (this.state.enteredCity !== "") {
-      this.props.fetchCity(this.state.enteredCity)
+      this.props.fetchCity(this.state.enteredCity, IS_FAVORITE)
       this.setState({enteredCity: ''})
     }
   }

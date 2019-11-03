@@ -2,10 +2,11 @@ import {fetchWeather} from "../services/weather";
 import {FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} from "./actionTypes"
 
 
-export const fetchCity = (city) => async dispatch => {
+export const fetchCity = (city, isFavorite) => async dispatch => {
   dispatch({
     type: FETCH_CITY_LOADING,
     payload: {
+      isFavorite,
       name: city,
       isLoading: true
     }
@@ -21,7 +22,10 @@ export const fetchCity = (city) => async dispatch => {
     else {
       dispatch({
         type: FETCH_CITY_SUCCESS,
-        payload: weather
+        payload: {
+          isFavorite,
+          ...weather
+        }
       });
     }
 
@@ -29,6 +33,7 @@ export const fetchCity = (city) => async dispatch => {
     dispatch({
       type: FETCH_CITY_ERROR,
       payload: {
+        isFavorite,
         name: city,
         ...weather
       }
@@ -36,7 +41,10 @@ export const fetchCity = (city) => async dispatch => {
   }
 }
 
-export const removeCity = city => ({
+export const removeCity = (city, isFavorite) => ({
   type: REMOVE_CITY,
-  payload: city
+  payload: {
+    isFavorite,
+    name: city
+  }
 });

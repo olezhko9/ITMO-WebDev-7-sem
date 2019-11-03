@@ -3,9 +3,18 @@ import {FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} f
 
 const reducer = (state = [], action) => {
 
+  console.log(action.payload);
+  if (action.payload && !action.payload.isFavorite) {
+    return state;
+  }
+
   switch (action.type) {
 
     case FETCH_CITY_LOADING:
+      if (state.find(city => city.name === action.payload.name)) {
+        return state;
+      }
+
       return [
         ...state,
         action.payload
@@ -21,7 +30,7 @@ const reducer = (state = [], action) => {
       })
 
     case REMOVE_CITY:
-      return state.filter(city => city.name !== action.payload)
+      return state.filter(city => city.name !== action.payload.name)
 
     default:
       return state
