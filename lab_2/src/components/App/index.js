@@ -7,7 +7,9 @@ import { SnackbarProvider } from 'notistack';
 
 import WeatherCard from "../WeatherCard";
 import FavoriteCitiesContainer from "../FavoriteCitiesContainer";
-import {fetchWeather} from "../../services/weather";
+
+import {fetchCity} from '../../store/actions';
+import {connect} from 'react-redux';
 
 
 const theme = createMuiTheme({
@@ -27,8 +29,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      geoLocationStatus: '',
-      currentLocationWeather: null
+      geoLocationStatus: ''
     }
   }
 
@@ -37,31 +38,24 @@ class App extends React.Component {
   }
 
   async getLocationWeather() {
-    this.setState({currentLocationWeather: null});
     const defaultCity = 'London'
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (async position => {
-          this.setState({
-            geoLocationStatus: 'enabled',
-            currentLocationWeather: await fetchWeather([position.coords.latitude, position.coords.longitude])
-          })
+          this.setState({ geoLocationStatus: 'enabled' })
+          this.props.fetchCity([position.coords.latitude, position.coords.longitude], false)
         }),
         async (error) => {
           if (error.code === error.PERMISSION_DENIED) {
             console.log("User denied the request for Geolocation.");
           }
-          this.setState({
-            geoLocationStatus: 'disabled',
-            currentLocationWeather: await fetchWeather(defaultCity)
-          })
+          this.setState({ geoLocationStatus: 'disabled' })
+          this.props.fetchCity(defaultCity, false)
         });
     } else {
       console.log("Geolocation is disabled")
-      this.setState({
-        geoLocationStatus: 'disabled',
-        currentLocationWeather: await fetchWeather(defaultCity)
-      })
+      this.setState({ geoLocationStatus: 'disabled' })
+      this.props.fetchCity(defaultCity, false)
     }
   }
 
@@ -93,7 +87,7 @@ class App extends React.Component {
               }
             </Grid>
 
-            <WeatherCard key={"default"} cityWeatherData={this.state.currentLocationWeather} isFavorite={false}/>
+            <WeatherCard key={"default"} cityWeatherData={this.props.mainCityWeather} isFavorite={false}/>
 
             <FavoriteCitiesContainer/>
 
@@ -104,4 +98,11 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    mainCityWeather: state.main
+  }),
+  {
+    fetchCity
+  }
+)(App);

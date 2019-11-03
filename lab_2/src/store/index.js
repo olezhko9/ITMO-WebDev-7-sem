@@ -6,7 +6,8 @@ import reducer from "./reducer";
 
 const STORAGE_KEY = 'favorite-cities-weather'
 const preloadedState = {
-  favorites: localStorage[STORAGE_KEY] ? JSON.parse(localStorage[STORAGE_KEY]) : []
+  favorites: localStorage[STORAGE_KEY] ? JSON.parse(localStorage[STORAGE_KEY]) : [],
+  main: {}
 }
 
 const store = createStore(
