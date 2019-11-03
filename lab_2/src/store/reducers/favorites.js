@@ -3,7 +3,6 @@ import {FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} f
 
 const reducer = (state = [], action) => {
 
-  console.log(action.payload);
   if (action.payload && !action.payload.isFavorite) {
     return state;
   }
