@@ -5,12 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
 import {withSnackbar} from "notistack";
 
-import {fetchCity, removeCity} from "../../store/actions";
-import {connect} from 'react-redux';
-
 import WeatherCard from "../WeatherCard";
 
-const IS_FAVORITE = true
+import {fetchCity, removeCity} from "../../store/actions";
+import {connect} from 'react-redux';
+const IS_FAVORITE = true;
 
 
 class FavoriteCities extends React.Component {

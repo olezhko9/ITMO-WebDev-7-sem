@@ -10,6 +10,7 @@ import FavoriteCitiesContainer from "../FavoriteCitiesContainer";
 
 import {fetchCity} from '../../store/actions';
 import {connect} from 'react-redux';
+const IS_FAVORITE = false;
 
 
 const theme = createMuiTheme({
@@ -43,19 +44,19 @@ class App extends React.Component {
       navigator.geolocation.getCurrentPosition(
         (async position => {
           this.setState({ geoLocationStatus: 'enabled' })
-          this.props.fetchCity([position.coords.latitude, position.coords.longitude], false)
+          this.props.fetchCity([position.coords.latitude, position.coords.longitude], IS_FAVORITE)
         }),
         async (error) => {
           if (error.code === error.PERMISSION_DENIED) {
             console.log("User denied the request for Geolocation.");
           }
           this.setState({ geoLocationStatus: 'disabled' })
-          this.props.fetchCity(defaultCity, false)
+          this.props.fetchCity(defaultCity, IS_FAVORITE)
         });
     } else {
       console.log("Geolocation is disabled")
       this.setState({ geoLocationStatus: 'disabled' })
-      this.props.fetchCity(defaultCity, false)
+      this.props.fetchCity(defaultCity, IS_FAVORITE)
     }
   }
 
