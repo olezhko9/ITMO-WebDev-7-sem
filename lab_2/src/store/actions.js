@@ -1,13 +1,6 @@
 import {fetchWeather} from "../services/weather";
-import {ADD_CITY, FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} from "./actionTypes"
+import {FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} from "./actionTypes"
 
-
-export const addCity = city => ({
-  type: ADD_CITY,
-  payload: {
-    name: city
-  }
-})
 
 export const fetchCity = (city) => async dispatch => {
   dispatch({

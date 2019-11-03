@@ -1,18 +1,18 @@
-import {ADD_CITY, FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} from "./actionTypes"
+import {FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_CITY} from "./actionTypes"
 
 
 const reducer = (state = [], action) => {
 
   switch (action.type) {
-    case ADD_CITY:
+
+    case FETCH_CITY_LOADING:
       return {
         favorites: [
           ...state.favorites,
           action.payload
         ]
-      };
+      }
 
-    case FETCH_CITY_LOADING:
     case FETCH_CITY_SUCCESS:
     case FETCH_CITY_ERROR:
       return {

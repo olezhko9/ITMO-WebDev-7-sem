@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
 import {withSnackbar} from "notistack";
 
-import {addCity, fetchCity, removeCity} from "../../store/actions";
+import {fetchCity, removeCity} from "../../store/actions";
 import {connect} from 'react-redux';
 
 import WeatherCard from "../WeatherCard";
@@ -46,7 +46,6 @@ class FavoriteCities extends React.Component {
   addCityToFavorite(e) {
     e.preventDefault()
     if (this.state.enteredCity !== "") {
-      this.props.addCity(this.state.enteredCity)
       this.props.fetchCity(this.state.enteredCity)
       this.setState({enteredCity: ''})
     }
@@ -103,7 +102,6 @@ export default withSnackbar(
       cities: state.favorites
     }),
     {
-      addCity,
       fetchCity,
       removeCity
     }
