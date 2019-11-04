@@ -1,27 +1,7 @@
-import getWeather from './weather'
 import '../style/main.sass'
+import {onFormSubmit, onCloseButtonClick} from "./handlers";
 
-const weatherTemplate = require('../components/weather.pug')
 
-$(function () {
+$('#city-form').submit(onFormSubmit)
 
-  $('#city-form').submit(async function (event) {
-    event.preventDefault()
-    $('#search-btn').addClass('loading')
-
-    const city = $(this).serializeArray()[0].value
-    const weatherData = await getWeather(city)
-    $('#city-input').val('')
-
-    const weatherComponent = weatherTemplate({
-      weather: weatherData
-    })
-
-    $('.weather-main').prepend(weatherComponent)
-    $('#search-btn').removeClass('loading')
-  })
-
-  $(document).on('click', '.close', function (e) {
-    $(this).parent().remove()
-  })
-})
+$(document).on('click', '.close', onCloseButtonClick)
