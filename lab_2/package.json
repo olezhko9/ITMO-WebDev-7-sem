@@ -55,6 +55,9 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "jest-transform-css"
-    }
+    },
+    "setupFiles": [
+      "./test/setupJest.js"
+    ]
   }
 }
