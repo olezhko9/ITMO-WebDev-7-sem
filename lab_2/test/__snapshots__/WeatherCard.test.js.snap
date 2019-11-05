@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Weather Card renders correctly when data is loading 1`] = `null`;
