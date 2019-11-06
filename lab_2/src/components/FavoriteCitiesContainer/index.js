@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 const IS_FAVORITE = true;
 
 
-class FavoriteCities extends React.Component {
+export class FavoriteCities extends React.Component {
 
   constructor(props) {
     super(props)
@@ -106,6 +106,6 @@ export default withSnackbar(
       fetchCity,
       removeCity
     }
-  )(FavoriteCities)
+)(FavoriteCities)
 );
 
