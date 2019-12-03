@@ -49,29 +49,38 @@ export const addCity = (city) => async dispatch => {
           cityName: city
         }
       });
+      dispatch(fetchCity(city, true));
     } catch (e) {
-      console.error(e);
+      console.error(e.response.data);
     }
   }
 }
 
 export const fetchFavorites = () => async dispatch => {
-  const favorites = (await getFavorites()).data.map(x => {
-    return {cityName: x.name}
-  });
-  dispatch({
-    type: FETCH_FAVORITES,
-    payload: favorites
-  });
+  try {
+    const favorites = (await getFavorites()).data.data.map(x => {
+      return {cityName: x.name}
+    });
+    dispatch({
+      type: FETCH_FAVORITES,
+      payload: favorites
+    });
+  } catch (e) {
+    console.error(e.response.data);
+  }
 }
 
 export const removeCity = (city, isFavorite) => async dispatch => {
-  dispatch({
-    type: REMOVE_FAVORITE,
-    payload: {
-      isFavorite,
-      cityName: city
-    }
-  })
-  await removeFromFavorites(city)
+  try {
+    await removeFromFavorites(city)
+    dispatch({
+      type: REMOVE_FAVORITE,
+      payload: {
+        isFavorite,
+        cityName: city
+      }
+    })
+  } catch (e) {
+    console.error(e.response.data);
+  }
 };

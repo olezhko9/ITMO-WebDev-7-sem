@@ -50,7 +50,6 @@ export class FavoriteCities extends React.Component {
     const city = this.state.enteredCity;
     if (city !== "") {
       await this.props.addCity(city);
-      this.props.fetchCity(city, IS_FAVORITE)
       this.setState({enteredCity: ''})
     }
   }
