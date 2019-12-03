@@ -1,5 +1,6 @@
 import {addToFavorites, fetchWeather, getFavorites, removeFromFavorites} from "../services/weather";
 import {FETCH_CITY_LOADING, FETCH_CITY_ERROR, FETCH_CITY_SUCCESS, REMOVE_FAVORITE, FETCH_FAVORITES, ADD_FAVORITE} from "./actionTypes"
+import store from './index'
 
 
 export const fetchCity = (city, isFavorite) => async dispatch => {
@@ -39,20 +40,25 @@ export const fetchCity = (city, isFavorite) => async dispatch => {
 }
 
 export const addCity = (city) => async dispatch => {
-  await addToFavorites(city)
-  dispatch({
-    type: ADD_FAVORITE,
-    payload: {
-      cityName: city
+  if (!store.getState().favorites.find(favCity => favCity.cityName === city)) {
+    try {
+      await addToFavorites(city)
+      dispatch({
+        type: ADD_FAVORITE,
+        payload: {
+          cityName: city
+        }
+      });
+    } catch (e) {
+      console.error(e);
     }
-  });
+  }
 }
 
 export const fetchFavorites = () => async dispatch => {
   const favorites = (await getFavorites()).data.map(x => {
     return {cityName: x.name}
   });
-  console.log(favorites);
   dispatch({
     type: FETCH_FAVORITES,
     payload: favorites
