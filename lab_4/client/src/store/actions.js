@@ -7,7 +7,7 @@ export const fetchCity = (city, isFavorite) => async dispatch => {
     type: FETCH_CITY_LOADING,
     payload: {
       isFavorite,
-      name: city,
+      cityName: city,
       isLoading: true
     }
   });
@@ -20,6 +20,7 @@ export const fetchCity = (city, isFavorite) => async dispatch => {
         type: FETCH_CITY_SUCCESS,
         payload: {
           isFavorite,
+          cityName: city,
           ...weather
         }
       });
@@ -30,7 +31,7 @@ export const fetchCity = (city, isFavorite) => async dispatch => {
       type: FETCH_CITY_ERROR,
       payload: {
         isFavorite,
-        name: city,
+        cityName: city,
         ...weather
       }
     });
@@ -42,14 +43,14 @@ export const addCity = (city) => async dispatch => {
   dispatch({
     type: ADD_FAVORITE,
     payload: {
-      name: city
+      cityName: city
     }
   });
 }
 
 export const fetchFavorites = () => async dispatch => {
   const favorites = (await getFavorites()).data.map(x => {
-    return {name: x.name}
+    return {cityName: x.name}
   });
   console.log(favorites);
   dispatch({
@@ -63,7 +64,7 @@ export const removeCity = (city, isFavorite) => async dispatch => {
     type: REMOVE_FAVORITE,
     payload: {
       isFavorite,
-      name: city
+      cityName: city
     }
   })
   await removeFromFavorites(city)

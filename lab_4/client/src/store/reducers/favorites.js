@@ -21,14 +21,14 @@ const reducer = (state = [], action) => {
       case FETCH_CITY_SUCCESS:
       case FETCH_CITY_ERROR:
         return state.map((city) => {
-          if (city.name.toLowerCase() === action.payload.name.toLowerCase())
+          if (city.cityName.toLowerCase() === action.payload.cityName.toLowerCase())
             return action.payload
 
           return city
         })
 
       case REMOVE_FAVORITE:
-        return state.filter(city => city.name !== action.payload.name)
+        return state.filter(city => city.cityName !== action.payload.cityName)
     }
   }
   return state

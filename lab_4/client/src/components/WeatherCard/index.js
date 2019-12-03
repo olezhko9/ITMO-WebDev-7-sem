@@ -60,7 +60,7 @@ export default function WeatherCard(props) {
             <Grid container item sm={1} justify={"flex-end"}>
               {props.isFavorite &&
               <Fab color="primary" size={"small"}
-                   onClick={props.onRemoveCityClick.bind(this, props.cityWeatherData.name)}>
+                   onClick={props.onRemoveCityClick.bind(this, props.cityWeatherData.cityName)}>
                 <CloseIcon/>
               </Fab>
               }

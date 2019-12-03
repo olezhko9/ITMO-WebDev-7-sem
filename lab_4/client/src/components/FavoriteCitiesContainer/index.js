@@ -24,7 +24,7 @@ export class FavoriteCities extends React.Component {
   async componentDidMount() {
     await this.props.fetchFavorites()
     this.props.cities.forEach(city => {
-      this.props.fetchCity(city.name, IS_FAVORITE)
+      this.props.fetchCity(city.cityName, IS_FAVORITE)
     })
   }
 
