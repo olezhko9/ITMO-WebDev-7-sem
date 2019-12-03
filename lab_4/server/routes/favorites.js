@@ -2,8 +2,14 @@ const favoritesRouter = require('express').Router()
 
 favoritesRouter.get('/', (req, res) => {
   req.app.locals.db.collection('favorites').find({}).toArray((err, result) => {
-    if (err) return console.log(err);
-    res.status(200).send(result)
+    if (err) res.status(500).send( {
+      result: "error",
+      desc: err.toString()
+    });
+    res.status(200).send({
+      result: "success",
+      data: result
+    });
   })
 })
 
@@ -12,8 +18,11 @@ favoritesRouter.post('/', (req, res) => {
     name: req.body.name
   }
   req.app.locals.db.collection('favorites').insertOne(favoriteCity, (err, result) => {
-    if (err) return console.log(err);
-    res.status(200).send()
+    if (err) res.status(500).send( {
+      result: "error",
+      desc: err.toString()
+    });
+    res.status(200).send({result: "success"});
   })
 })
 
@@ -22,8 +31,11 @@ favoritesRouter.delete('/', (req, res) => {
     name: req.body.name
   }
   req.app.locals.db.collection('favorites').deleteOne(favoriteCity, (err, result) => {
-    if (err) return console.log(err);
-    res.status(200).send()
+    if (err) res.status(500).send( {
+      result: "error",
+      desc: err.toString()
+    });
+    res.status(200).send({result: "success"});
   })
 })
 
