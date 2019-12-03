@@ -7,7 +7,7 @@ import {withSnackbar} from "notistack";
 
 import WeatherCard from "../WeatherCard";
 
-import {fetchCity, removeCity} from "../../store/actions";
+import {fetchCity, removeCity, addCity, fetchFavorites} from "../../store/actions";
 import {connect} from 'react-redux';
 const IS_FAVORITE = true;
 
@@ -21,7 +21,8 @@ export class FavoriteCities extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.props.fetchFavorites()
     this.props.cities.forEach(city => {
       this.props.fetchCity(city.name, IS_FAVORITE)
     })
@@ -44,10 +45,12 @@ export class FavoriteCities extends React.Component {
     });
   }
 
-  addCityToFavorite(e) {
+  async addCityToFavorite(e) {
     e.preventDefault()
-    if (this.state.enteredCity !== "") {
-      this.props.fetchCity(this.state.enteredCity, IS_FAVORITE)
+    const city = this.state.enteredCity;
+    if (city !== "") {
+      await this.props.addCity(city);
+      this.props.fetchCity(city, IS_FAVORITE)
       this.setState({enteredCity: ''})
     }
   }
@@ -104,7 +107,9 @@ export default withSnackbar(
     }),
     {
       fetchCity,
-      removeCity
+      addCity,
+      removeCity,
+      fetchFavorites
     }
 )(FavoriteCities)
 );
