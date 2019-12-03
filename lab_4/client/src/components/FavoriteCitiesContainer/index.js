@@ -36,9 +36,9 @@ export class FavoriteCities extends React.Component {
     this.setState({enteredCity: city})
   }
 
-  handleCityFetchError(city) {
+  handleCityFetchError(city, message) {
     this.removeCityFromFavorite(city)
-    this.props.enqueueSnackbar(`Не удалось получить погоду для города ${city}`, {
+    this.props.enqueueSnackbar(`Не удалось получить погоду для города ${city}: ${message}`, {
       variant: 'error',
       autoHideDuration: 3000
     });
@@ -86,7 +86,7 @@ export class FavoriteCities extends React.Component {
                 cityWeatherData={cityWeather}
                 isFavorite
                 onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
-                onFetchError={this.handleCityFetchError.bind(this, cityWeather.name)}
+                onFetchError={this.handleCityFetchError.bind(this, cityWeather.name, cityWeather.message)}
               />
             </Grid>
           )}

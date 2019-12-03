@@ -18,7 +18,12 @@ export default function WeatherCard(props) {
 
   if (data && data.cod && data.cod != 200) {
     if ('onFetchError' in props) props.onFetchError()
-    return (<p>К сожалению, не получилось получить данные о погоде...</p>)
+    return (
+      <div>
+        <p>К сожалению, не получилось получить данные о погоде...</p>
+        <p>{data.message}</p>
+      </div>
+    )
   }
 
   if (data && data.cod == 200) {

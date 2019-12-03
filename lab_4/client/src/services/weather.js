@@ -1,11 +1,13 @@
+import axios from 'axios';
+
 export function fetchWeather(location) {
   let url = ''
 
   if (Array.isArray(location)) {
-    url = `https://api.openweathermap.org/data/2.5/weather?lat=${location[0]}&lon=${location[1]}&appid=263bacc60191ddc5e17b82d2d0c753d4`
+    url = `http://localhost:9000/weather/coordinates?lat=${location[0]}&lon=${location[1]}`
   } else if (typeof location === 'string' && location.length) {
-    url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=263bacc60191ddc5e17b82d2d0c753d4`
+    url = `http://localhost:9000/weather?city=${location}`
   } else return
 
-  return fetch(url).then(res => res.json())
+  return axios.get(url)
 }

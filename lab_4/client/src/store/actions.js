@@ -14,12 +14,8 @@ export const fetchCity = (city, isFavorite) => async dispatch => {
 
   let weather = null;
   try {
-    weather = await fetchWeather(city);
-
-    if (weather.cod != 200) {
-      throw new Error("City not found")
-    }
-    else {
+    weather = (await fetchWeather(city)).data;
+    if (weather.cod == 200) {
       dispatch({
         type: FETCH_CITY_SUCCESS,
         payload: {
@@ -28,8 +24,8 @@ export const fetchCity = (city, isFavorite) => async dispatch => {
         }
       });
     }
-
   } catch (e) {
+    weather = e.response.data;
     dispatch({
       type: FETCH_CITY_ERROR,
       payload: {
