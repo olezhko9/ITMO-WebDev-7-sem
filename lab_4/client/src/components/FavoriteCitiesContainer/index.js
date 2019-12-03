@@ -89,7 +89,7 @@ export class FavoriteCities extends React.Component {
                 cityWeatherData={cityWeather}
                 isFavorite
                 onRemoveCityClick={this.removeCityFromFavorite.bind(this)}
-                onFetchError={this.handleCityFetchError.bind(this, cityWeather.name, cityWeather.message)}
+                onFetchError={this.handleCityFetchError.bind(this, cityWeather.cityName, cityWeather.message)}
               />
             </Grid>
           )}
