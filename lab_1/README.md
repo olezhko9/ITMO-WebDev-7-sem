@@ -16,3 +16,12 @@ npm run start
 # build for production
 npm run build
 ```
+
+## Тестирование
+``` bash
+# make sure webpack server is running at localhost:8080
+npm run start
+
+# run tests
+npm run test
+```
