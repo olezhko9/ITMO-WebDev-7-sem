@@ -3,3 +3,6 @@
 node_modules
 
 build
+
+tests_output
+chromedriver.log
